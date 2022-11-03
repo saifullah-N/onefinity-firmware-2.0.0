@@ -50,7 +50,8 @@ window.onload = function() {
     Vue.component("indicators", require("./indicators"));
     Vue.component("io-indicator", require("./io-indicator"));
     Vue.component("console", require("./console"));
-    Vue.component("unit-value", require("./unit-value"));
+    Vue.component("unit-value", require("./unit-value"))
+    Vue.component("get-started",require("./get-started"));
 
     Vue.filter("number", function(value) {
         if (isNaN(value)) {
