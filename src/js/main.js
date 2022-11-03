@@ -52,6 +52,9 @@ window.onload = function() {
     Vue.component("console", require("./console"));
     Vue.component("unit-value", require("./unit-value"))
     Vue.component("get-started",require("./get-started"));
+    Vue.component("network-setup",require("./network-setup"));
+    Vue.component("initial-configuration",require("./initial-configuration"))
+
 
     Vue.filter("number", function(value) {
         if (isNaN(value)) {
