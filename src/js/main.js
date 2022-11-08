@@ -54,6 +54,8 @@ window.onload = function() {
     Vue.component("get-started",require("./get-started"));
     Vue.component("network-setup",require("./network-setup"));
     Vue.component("initial-configuration",require("./initial-configuration"))
+    Vue.component("admin-general-view", require("./admin-general-view"))
+    Vue.component("admin-network-view", require("./admin-network-view"))
 
 
     Vue.filter("number", function(value) {
