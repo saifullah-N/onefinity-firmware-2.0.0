@@ -90,9 +90,9 @@ function update_object(dst, src, remove) {
     }
 }
 
-module.exports = new Vue({
+module.exports = new Vue ({
     el: "body",
-
+    
     data: function() {
         return {
             status: "connecting",
