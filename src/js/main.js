@@ -166,5 +166,5 @@ window.onload = function() {
     // Vue app
     app = require("./app");
     // app.mount()
-    app.use(router)
+    app.options.router=router
 };
