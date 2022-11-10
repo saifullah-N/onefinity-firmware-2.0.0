@@ -617,6 +617,14 @@ class Web(tornado.web.Application):
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'defaultConfig.html'
             }),
+            (r'/(.*)', StaticFileHandler, {
+                'path': bbctrl.get_resource('http/'),
+                'default_filename': 'getStarted.html'
+            }),
+            (r'/done/(.*)', StaticFileHandler, {
+                'path': bbctrl.get_resource('http/'),
+                'default_filename': 'done.html'
+            }),
         ]
 
         router = sockjs.tornado.SockJSRouter(SockJSConnection, '/sockjs')

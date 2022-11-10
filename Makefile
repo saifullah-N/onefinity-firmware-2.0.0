@@ -117,6 +117,13 @@ HTML_NETWORK       := network
 HTML_NETWORK       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_NETWORK))
 HTML_CONFIG      := defaultConfig
 HTML_CONFIG       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_CONFIG))
+
+HTML_DONE      := done
+HTML_DONE      := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_DONE))
+
+HTML_GETSTART      := getStarted
+HTML_GETSTART       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_GETSTART))
+
 RESOURCES  := $(shell find src/resources -type f)
 RESOURCES  := $(patsubst src/resources/%,$(TARGET_DIR)/%,$(RESOURCES))
 TEMPLS     := $(wildcard src/pug/templates/*.pug)
@@ -148,6 +155,10 @@ all: $(HTML) $(RESOURCES)
 all: $(HTML_NETWORK) $(RESOURCES)
 	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
 all: $(HTML_CONFIG) $(RESOURCES)
+	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
+all: $(HTML_DONE) $(RESOURCES)
+	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
+all: $(HTML_GETSTART) $(RESOURCES)
 	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
 
 pkg: all $(AVR_FIRMWARE) bbserial
@@ -223,6 +234,27 @@ $(TARGET_DIR)/defaultConfig.html: $(wildcard src/stylus/*)
 $(TARGET_DIR)/defaultConfig.html: src/resources/config-template.json
 $(TARGET_DIR)/defaultConfig.html: $(wildcard src/resources/onefinity*defaults.json)
 $(TARGET_DIR)/defaultConfig.html: $(wildcard src/svelte-components/dist/*)
+
+$(TARGET_DIR)/getStarted.html: build/templates.pug
+$(TARGET_DIR)/getStarted.html: $(wildcard src/static/js/*)
+$(TARGET_DIR)/getStarted.html: $(wildcard src/static/css/*)
+$(TARGET_DIR)/getStarted.html: $(wildcard src/pug/templates/*)
+$(TARGET_DIR)/getStarted.html: $(wildcard src/js/*)
+$(TARGET_DIR)/getStarted.html: $(wildcard src/stylus/*)
+$(TARGET_DIR)/getStarted.html: src/resources/config-template.json
+$(TARGET_DIR)/getStarted.html: $(wildcard src/resources/onefinity*defaults.json)
+$(TARGET_DIR)/getStarted.html: $(wildcard src/svelte-components/dist/*)
+
+
+$(TARGET_DIR)/done.html: build/templates.pug
+$(TARGET_DIR)/done.html: $(wildcard src/static/js/*)
+$(TARGET_DIR)/done.html: $(wildcard src/static/css/*)
+$(TARGET_DIR)/done.html: $(wildcard src/pug/templates/*)
+$(TARGET_DIR)/done.html: $(wildcard src/js/*)
+$(TARGET_DIR)/done.html: $(wildcard src/stylus/*)
+$(TARGET_DIR)/done.html: src/resources/config-template.json
+$(TARGET_DIR)/done.html: $(wildcard src/resources/onefinity*defaults.json)
+$(TARGET_DIR)/done.html: $(wildcard src/svelte-components/dist/*)
 
 
 
