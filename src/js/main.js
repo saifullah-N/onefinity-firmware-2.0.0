@@ -1,5 +1,7 @@
 "use strict";
 
+const getStarted = require("./get-started");
+
 function cookie_get(name) {
     const decodedCookie = decodeURIComponent(document.cookie);
     const ca = decodedCookie.split(";");
@@ -43,7 +45,24 @@ window.onload = function() {
     if (typeof cookie_get("client-id") == "undefined") {
         cookie_set("client-id", uuid(), 10000);
     }
+    Vue.use(VueRouter);
+    var App = Vue.extend({});
+    var router = new VueRouter();
+    // router.start(App, 'body');
+var Home = Vue.extend({
+  template: 'Welcome to the <b>home page</b>!'
+});
+var getStarted = Vue.extend("getStarted",require("./get-started"));
+router.map({
+  '/': {
+    component: getStarted
+  },
+  '/home': {
+    component: Home
+  }
+});
 
+    router.start(App, 'body');
     // Register global components
     Vue.component("templated-input", require("./templated-input"));
     Vue.component("message", require("./message"));
@@ -51,7 +70,7 @@ window.onload = function() {
     Vue.component("io-indicator", require("./io-indicator"));
     Vue.component("console", require("./console"));
     Vue.component("unit-value", require("./unit-value"))
-    Vue.component("get-started",require("./get-started"));
+    // Vue.component("get-started",require("./get-started"));
     Vue.component("network-setup",require("./network-setup"));
     Vue.component("initial-configuration",require("./initial-configuration"))
     // Vue.component("admin-general-view", require("./admin-general-view"))
@@ -150,7 +169,7 @@ window.onload = function() {
 
 
     // Vue app
-    require("./app")
+    // require("./app")
     // app = require("./app");
     // app.mount()
     //app.options.router=router

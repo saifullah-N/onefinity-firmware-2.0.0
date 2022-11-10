@@ -22,10 +22,9 @@ html(lang="en")
 
     #overlay(v-if="status != 'connected'")
       span {{status}}
+    a(v-link="{ path: '/home' }") home
+    a(v-link="{ path: '/getStarted'}")  People
     router-view
-    get-started
-    network-setup
-    initial-configuration
     #layout
     
     //- get-started
@@ -181,7 +180,7 @@ html(lang="en")
     iframe#download-target(style="display:none")
 
     script: include ../static/js/vue.js
-    script: include ../static/js/vue-router.js
+    script: include ../static/js/vue-router.min.js
     script: include ../static/js/sockjs.min.js
     script: include ../static/js/clusterize.min.js
     script: include ../static/js/three.min.js
