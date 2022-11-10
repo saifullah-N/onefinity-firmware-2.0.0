@@ -142,6 +142,7 @@ module.exports = new Vue({
         "admin-general-view": require("./admin-general-view"),
         "admin-network-view" : require("./admin-network-view"),
         "help-view": require("./help-view"),
+        "default-config-view": require("./default-config"),
         "cheat-sheet-view": {
             template: "#cheat-sheet-view-template",
             data: function() {
@@ -392,6 +393,14 @@ module.exports = new Vue({
               location.hash = "admin-network";
               return;
             }
+
+             if (
+               location.pathname == "/defaultConfig/" &&
+               !hash.trim().length
+             ) {
+               location.hash = "default-config";
+               return;
+             }
 
             const parts = hash.split(":");
 
