@@ -376,20 +376,22 @@ const myApp = new Vue ({
         },
 
         parse_hash: function() {
-            const hash = location.hash.substr(1);
+        if (location.pathname=="home"){
+          const hash = location.hash.substr(1);
 
-            if (!hash.trim().length) {
-                location.hash = "control";
-                return;
-            }
+          if (!hash.trim().length) {
+            location.hash = "control";
+            return;
+          }
 
-            const parts = hash.split(":");
+          const parts = hash.split(":");
 
-            if (parts.length == 2) {
-                this.index = parts[1];
-            }
+          if (parts.length == 2) {
+            this.index = parts[1];
+          }
 
-            this.currentView = parts[0];
+          this.currentView = parts[0];
+        }
         },
 
         save: async function() {
@@ -437,7 +439,9 @@ const myApp = new Vue ({
 });
 
 const routes = [
-      { path: "/", component: lets-get-started },
+      { path: "/", component: get-started},
+      {path:"/network",component:network-setup}
+    //   {path:"/options":network-setup}
       //   { path: "/about", component: About },
     ];
 
