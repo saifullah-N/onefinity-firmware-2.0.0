@@ -150,7 +150,6 @@ window.onload = function() {
         return parts.join(":");
     });
 
-  Vue.use(VueRouter)
     // Vue app
     require("./app")
     // app = require("./app");

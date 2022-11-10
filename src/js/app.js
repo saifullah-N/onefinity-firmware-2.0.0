@@ -100,6 +100,8 @@ const router = new VueRouter({
   routes: routes, // short for `routes: routes`
 });
 
+ Vue.use(VueRouter);
+ 
 module.exports = new Vue ({
     el: "body",
     router:router,
