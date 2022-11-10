@@ -98,7 +98,7 @@ $(TARGET_DIR)/index.html: $(wildcard src/resources/onefinity*defaults.json)
 $(TARGET_DIR)/index.html: $(wildcard src/svelte-components/dist/*)
 
 
-$(TARGET_DIR_NETWORK)/index.html: build/templates.pug
+# $(TARGET_DIR_NETWORK)/index.html: build/templates.pug
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/static/js/*)
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/static/css/*)
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/network/templates/*)
@@ -108,9 +108,8 @@ $(TARGET_DIR_NETWORK)/index.html: src/resources/config-template.json
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/resources/onefinity*defaults.json)
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/svelte-components/dist/*)
 
-FORCE:
-
-$(TARGET_DIR)/%.html: src/pug/%.pug node_modules FORCE
+# FORCE:
+# $(TARGET_DIR)/%.html: src/pug/%.pug node_modules FORCE
 	cd src/svelte-components && rm -rf dist && npm run build
 	@mkdir -p $(TARGET_DIR)/svelte-components
 	cp src/svelte-components/dist/* $(TARGET_DIR)/svelte-components/
@@ -118,6 +117,7 @@ $(TARGET_DIR)/%.html: src/pug/%.pug node_modules FORCE
 	@mkdir -p $(TARGET_DIR)
 	$(PUG) -O pug-opts.js -P $< -o $(TARGET_DIR) || (rm -f $@; exit 1)
 
+FORCE:
 $(TARGET_DIR_NETWORK)/%.html: src/network/%.pug node_modules FORCE
 	cd src/svelte-components && rm -rf dist && npm run build
 	@mkdir -p $(TARGET_DIR_NETWORK)/svelte-components
