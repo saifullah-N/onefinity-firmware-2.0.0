@@ -383,9 +383,14 @@ module.exports = new Vue({
         parse_hash: function() {
             const hash = location.hash.substr(1);
 
-            if (!hash.trim().length) {
+            if ( pathname=="home" && !hash.trim().length) {
                 location.hash = "control";
                 return;
+            }
+
+            if (pathname == "network" && !hash.trim().length) {
+              location.hash = "admin-network";
+              return;
             }
 
             const parts = hash.split(":");
