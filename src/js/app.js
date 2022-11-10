@@ -4,16 +4,15 @@ const api = require("./api");
 const cookie = require("./cookie")("bbctrl-");
 const Sock = require("./sock");
 const semverLt = require("semver/functions/lt");
-
-SvelteComponents.createComponent(
-  "DialogHost",
-  document.getElementById("svelte-dialog-host")
-);
-if(document.getElementById("adminViewSvelte")){
-SvelteComponents.createComponent(
-  "AdminNetworkView",
-  
-);}
+if (document.getElementById("svelte-dialog-host")!=undefined) {
+  SvelteComponents.createComponent(
+    "DialogHost",
+    document.getElementById("svelte-dialog-host")
+  );
+}
+if (document.getElementById("adminViewSvelte") != undefined) {
+  SvelteComponents.createComponent("AdminNetworkView");
+}
 
 
 function parse_version(v) {
