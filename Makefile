@@ -118,7 +118,6 @@ $(TARGET_DIR)/%.html: src/pug/%.pug node_modules FORCE
 	@mkdir -p $(TARGET_DIR)
 	$(PUG) -O pug-opts.js -P $< -o $(TARGET_DIR) || (rm -f $@; exit 1)
 
-FORCE:
 $(TARGET_DIR_NETWORK)/%.html: src/network/%.pug node_modules FORCE
 	cd src/svelte-components && rm -rf dist && npm run build
 	@mkdir -p $(TARGET_DIR_NETWORK)/svelte-components
