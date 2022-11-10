@@ -51,6 +51,8 @@ window.onload = function() {
     Vue.component("io-indicator", require("./io-indicator"));
     Vue.component("console", require("./console"));
     Vue.component("unit-value", require("./unit-value"));
+    Vue.component("admin-network-view", require("./admin-network-view"),
+)
 
     Vue.filter("number", function(value) {
         if (isNaN(value)) {

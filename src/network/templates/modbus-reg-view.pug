@@ -1,0 +1,18 @@
+script#modbus-reg-view-template(type="text/x-template")
+  tr.modbus-reg
+    td.reg-index {{index}}
+    td.reg-type
+      select(v-model="model['reg-type']", @change="change")
+        option(v-for="opt in template['reg-type']['values']", :value="opt")
+          | {{opt}}
+
+    td.reg-addr
+      input(v-model="model['reg-addr']", @change="change", type="text",
+        :min="template['reg-addr'].min", :max="template['reg-addr'].max",
+        pattern="[0-9]*", :disabled="model['reg-type'] == 'disabled'",
+        number)
+
+    td.reg-value
+      input(v-model="model['reg-value']", @change="change", type="text",
+        :min="template['reg-value'].min", :max="template['reg-value'].max",
+        pattern="[0-9]*", :disabled="!has_user_value", number)

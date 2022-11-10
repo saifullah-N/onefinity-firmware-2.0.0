@@ -5,9 +5,14 @@ const cookie = require("./cookie")("bbctrl-");
 const Sock = require("./sock");
 const semverLt = require("semver/functions/lt");
 
-SvelteComponents.createComponent("DialogHost",
-    document.getElementById("svelte-dialog-host")
+SvelteComponents.createComponent(
+  "DialogHost",
+  document.getElementById("svelte-dialog-host")
 );
+// SvelteComponents.createComponent(
+//   "AdminNetworkView",
+//   document.getElementById("adminViewSvelte")
+// );
 
 function parse_version(v) {
     const pattern = /^(\d+)\.(\d+)\.(\d+)(?:[-.]?(.*))?$/;
@@ -134,7 +139,6 @@ module.exports = new Vue({
         "tool-view": require("./tool-view"),
         "io-view": require("./io-view"),
         "admin-general-view": require("./admin-general-view"),
-        "admin-network-view": require("./admin-network-view"),
         "help-view": require("./help-view"),
         "cheat-sheet-view": {
             template: "#cheat-sheet-view-template",

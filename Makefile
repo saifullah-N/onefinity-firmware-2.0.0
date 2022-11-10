@@ -10,6 +10,13 @@ RESOURCES  := $(shell find src/resources -type f)
 RESOURCES  := $(patsubst src/resources/%,$(TARGET_DIR)/%,$(RESOURCES))
 TEMPLS     := $(wildcard src/pug/templates/*.pug)
 
+TARGET_DIR_NETWORK := build/network
+#HTML_NETWORK       := index
+HTML_NETWORK       := $(patsubst %,$(TARGET_DIR_NETWORK)/%.html,$(HTML))
+RESOURCES_NETWORK := $(shell find src/resources -type f)
+RESOURCES_NETWORK := $(patsubst src/resources/%,$(TARGET_DIR_NETWORK)/%,$(RESOURCES))
+TEMPLS_NETWORK   := $(wildcard src/network/templates/*.pug)
+
 AVR_FIRMWARE := src/avr/bbctrl-avr-firmware.hex
 GPLAN_MOD    := rpi-share/camotics/gplan.so
 GPLAN_TARGET := src/py/camotics/gplan.so
@@ -74,6 +81,9 @@ node_modules: package.json
 $(TARGET_DIR)/%: src/resources/%
 	install -D $< $@
 
+$(TARGET_DIR_NETWORK)/%: src/resources/%
+	install -D $< $@
+
 src/svelte-components/dist/%:
 	cd src/svelte-components && rm -rf dist && npm run build
 
@@ -87,6 +97,17 @@ $(TARGET_DIR)/index.html: src/resources/config-template.json
 $(TARGET_DIR)/index.html: $(wildcard src/resources/onefinity*defaults.json)
 $(TARGET_DIR)/index.html: $(wildcard src/svelte-components/dist/*)
 
+
+$(TARGET_DIR_NETWORK)/index.html: build/templates.pug
+$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/static/js/*)
+$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/static/css/*)
+$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/pug/templates/*)
+$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/js/*)
+$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/stylus/*)
+$(TARGET_DIR_NETWORK)/index.html: src/resources/config-template.json
+$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/resources/onefinity*defaults.json)
+$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/svelte-components/dist/*)
+
 FORCE:
 
 $(TARGET_DIR)/%.html: src/pug/%.pug node_modules FORCE
@@ -96,6 +117,15 @@ $(TARGET_DIR)/%.html: src/pug/%.pug node_modules FORCE
 
 	@mkdir -p $(TARGET_DIR)
 	$(PUG) -O pug-opts.js -P $< -o $(TARGET_DIR) || (rm -f $@; exit 1)
+
+
+$(TARGET_DIR_NETWORK)/%.html: src/pug/%.pug node_modules FORCE
+	cd src/svelte-components && rm -rf dist && npm run build
+	@mkdir -p $(TARGET_DIR_NETWORK)/svelte-components
+	cp src/svelte-components/dist/* $(TARGET_DIR_NETWORK)/svelte-components/
+
+	@mkdir -p $(TARGET_DIR_NETWORK)
+	$(PUG) -O pug-opts.js -P $< -o $(TARGET_DIR_NETWORK) || (rm -f $@; exit 1)
 
 clean:
 	rm -rf rpi-share

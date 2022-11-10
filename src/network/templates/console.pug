@@ -1,0 +1,16 @@
+script#console-template(type="text/x-template")
+  .console
+    .toolbar
+      button.pure-button(title="Clear console.", @click="clear")
+        .fa.fa-trash
+        | &nbsp;Clear
+
+    .console-wrapper
+      table
+        tr
+          th Level
+          th Message
+
+        tr(v-for="msg in messages", class="log-{{msg.level || 'info'}}")
+          td {{msg.level  || 'info'}}
+          td.message {{msg.msg}}
