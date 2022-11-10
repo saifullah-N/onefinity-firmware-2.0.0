@@ -610,8 +610,8 @@ class Web(tornado.web.Application):
                 'default_filename': 'index.html'
             }),
             (r'/network/(.*)', StaticFileHandler, {
-                'path': bbctrl.get_resource('network/'),
-                'default_filename': 'index.html'
+                'path': bbctrl.get_resource('http/'),
+                'default_filename': 'network.html'
             }),
         ]
 
