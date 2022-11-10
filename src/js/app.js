@@ -446,6 +446,3 @@ module.exports = new Vue ({
         },
     },
 });
-
-
-module.exports = myApp
