@@ -11,10 +11,10 @@ RESOURCES  := $(patsubst src/resources/%,$(TARGET_DIR)/%,$(RESOURCES))
 TEMPLS     := $(wildcard src/pug/templates/*.pug)
 
 TARGET_DIR_NETWORK := build/network
-#HTML_NETWORK       := index
-HTML_NETWORK       := $(patsubst %,$(TARGET_DIR_NETWORK)/%.html,$(HTML))
+HTML_NETWORK     := index
+HTML_NETWORK       := $(patsubst %,$(TARGET_DIR_NETWORK)/%.html,$(HTML_NETWORK))
 RESOURCES_NETWORK := $(shell find src/resources -type f)
-RESOURCES_NETWORK := $(patsubst src/resources/%,$(TARGET_DIR_NETWORK)/%,$(RESOURCES))
+RESOURCES_NETWORK := $(patsubst src/resources/%,$(TARGET_DIR_NETWORK)/%,$(RESOURCES_NETWORK))
 TEMPLS_NETWORK   := $(wildcard src/network/templates/*.pug)
 
 AVR_FIRMWARE := src/avr/bbctrl-avr-firmware.hex
@@ -118,7 +118,7 @@ $(TARGET_DIR)/%.html: src/pug/%.pug node_modules FORCE
 	@mkdir -p $(TARGET_DIR)
 	$(PUG) -O pug-opts.js -P $< -o $(TARGET_DIR) || (rm -f $@; exit 1)
 
-
+FORCE:
 $(TARGET_DIR_NETWORK)/%.html: src/pug/%.pug node_modules FORCE
 	cd src/svelte-components && rm -rf dist && npm run build
 	@mkdir -p $(TARGET_DIR_NETWORK)/svelte-components
