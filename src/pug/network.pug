@@ -18,9 +18,10 @@ html(lang="en")
     //- style: include:stylus ../stylus/style.styl
 
   body(v-cloak)
-    #adminViewSvelte
+    //- #adminViewSvelte
     //- admin-network-view
-
+    component(:is= "admin-network-view", :index="index",
+          :config="config", :template="template", :state="state", keep-alive)
     #templates: include ../../build/templates.pug
     iframe#download-target(style="display:none")
 
