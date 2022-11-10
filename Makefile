@@ -101,7 +101,7 @@ $(TARGET_DIR)/index.html: $(wildcard src/svelte-components/dist/*)
 $(TARGET_DIR_NETWORK)/index.html: build/templates.pug
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/static/js/*)
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/static/css/*)
-$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/pug/templates/*)
+$(TARGET_DIR_NETWORK)/index.html: $(wildcard src/network/templates/*)
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/js/*)
 $(TARGET_DIR_NETWORK)/index.html: $(wildcard src/stylus/*)
 $(TARGET_DIR_NETWORK)/index.html: src/resources/config-template.json
@@ -119,7 +119,7 @@ $(TARGET_DIR)/%.html: src/pug/%.pug node_modules FORCE
 	$(PUG) -O pug-opts.js -P $< -o $(TARGET_DIR) || (rm -f $@; exit 1)
 
 FORCE:
-$(TARGET_DIR_NETWORK)/%.html: src/pug/%.pug node_modules FORCE
+$(TARGET_DIR_NETWORK)/%.html: src/network/%.pug node_modules FORCE
 	cd src/svelte-components && rm -rf dist && npm run build
 	@mkdir -p $(TARGET_DIR_NETWORK)/svelte-components
 	cp src/svelte-components/dist/* $(TARGET_DIR_NETWORK)/svelte-components/
