@@ -15,11 +15,11 @@ html(lang="en")
     style: include ../svelte-components/node_modules/svelte-material-ui/bare.css
     style: include ../../build/http/svelte-components/smui.css
     style: include ../../build/http/svelte-components/style.css
-    style: include:stylus ../stylus/style.styl
+    //- style: include:stylus ../stylus/style.styl
 
   body(v-cloak)
-    //- #adminViewSvelte
-    admin-network-view
+    #adminViewSvelte
+    //- admin-network-view
 
     #templates: include ../../build/templates.pug
     iframe#download-target(style="display:none")

@@ -9,10 +9,10 @@ SvelteComponents.createComponent(
   "DialogHost",
   document.getElementById("svelte-dialog-host")
 );
-// SvelteComponents.createComponent(
-//   "AdminNetworkView",
-//   document.getElementById("adminViewSvelte")
-// );
+SvelteComponents.createComponent(
+  "AdminNetworkView",
+  document.getElementById("adminViewSvelte")
+);
 
 function parse_version(v) {
     const pattern = /^(\d+)\.(\d+)\.(\d+)(?:[-.]?(.*))?$/;
