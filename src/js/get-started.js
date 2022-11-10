@@ -1,7 +1,6 @@
 "use strict";
 
 module.exports = {
-  replace: true,
   template: `
   <div><img src="/images/onefinity_logo.png" style="width:50%; margin-top:3em;"/>
   <p style="font-size:25px; font-family:sans-serif ; margin-top:2em ; padding: 0% 0% 0% 15%">Hi and welcome to Onefinity ! Thank you for being a part of our community. <br/> 
