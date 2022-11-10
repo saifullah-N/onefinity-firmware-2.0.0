@@ -27,6 +27,11 @@ html(lang="en")
     network-setup
     initial-configuration
     #layout
+    
+    //- get-started
+    network-setup
+    initial-configuration
+    #layout
       a#menuLink.menu-link(href="#menu"): span
 
       #menu
@@ -104,7 +109,7 @@ html(lang="en")
         .content(class="{{currentView}}-view")
           component(:is="currentView + '-view'", :index="index",
             :config="config", :template="template", :state="state", keep-alive)
-    
+
     message.error-message(:show.sync="errorShow")
       div(slot="header")
         .estop(:class="{active: state.es}"): estop(@click="estop")

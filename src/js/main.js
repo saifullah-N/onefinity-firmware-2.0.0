@@ -1,7 +1,5 @@
 "use strict";
 
-const { Router } = require("express");
-
 function cookie_get(name) {
     const decodedCookie = decodeURIComponent(document.cookie);
     const ca = decodedCookie.split(";");
@@ -149,6 +147,7 @@ window.onload = function() {
 
         return parts.join(":");
     });
+
 
     // Vue app
     require("./app")
