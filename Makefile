@@ -115,6 +115,8 @@ HTML       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML))
 
 HTML_NETWORK       := network
 HTML_NETWORK       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_NETWORK))
+HTML_CONFIG      := defaultConfig
+HTML_CONFIG       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_CONFIG))
 RESOURCES  := $(shell find src/resources -type f)
 RESOURCES  := $(patsubst src/resources/%,$(TARGET_DIR)/%,$(RESOURCES))
 TEMPLS     := $(wildcard src/pug/templates/*.pug)
@@ -144,6 +146,8 @@ all: $(HTML) $(RESOURCES)
 
 # !
 all: $(HTML_NETWORK) $(RESOURCES)
+	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
+all: $(HTML_CONFIG) $(RESOURCES)
 	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
 
 pkg: all $(AVR_FIRMWARE) bbserial
@@ -209,6 +213,16 @@ $(TARGET_DIR)/network.html: $(wildcard src/stylus/*)
 $(TARGET_DIR)/network.html: src/resources/config-template.json
 $(TARGET_DIR)/network.html: $(wildcard src/resources/onefinity*defaults.json)
 $(TARGET_DIR)/network.html: $(wildcard src/svelte-components/dist/*)
+
+$(TARGET_DIR)/defaultConfig.html: build/templates.pug
+$(TARGET_DIR)/defaultConfig.html: $(wildcard src/static/js/*)
+$(TARGET_DIR)/defaultConfig.html: $(wildcard src/static/css/*)
+$(TARGET_DIR)/defaultConfig.html: $(wildcard src/pug/templates/*)
+$(TARGET_DIR)/defaultConfig.html: $(wildcard src/js/*)
+$(TARGET_DIR)/defaultConfig.html: $(wildcard src/stylus/*)
+$(TARGET_DIR)/defaultConfig.html: src/resources/config-template.json
+$(TARGET_DIR)/defaultConfig.html: $(wildcard src/resources/onefinity*defaults.json)
+$(TARGET_DIR)/defaultConfig.html: $(wildcard src/svelte-components/dist/*)
 
 
 
