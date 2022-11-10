@@ -164,6 +164,7 @@ window.onload = function() {
         routes, // short for `routes: routes`
     });
     // Vue app
+    require("./app")
     app = require("./app");
     // app.mount()
     app.options.router=router
