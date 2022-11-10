@@ -100,11 +100,10 @@ const router = new VueRouter({
   routes: routes, // short for `routes: routes`
 });
 
- Vue.use(VueRouter);
- 
-module.exports = new Vue ({
+
+const MyApp = new Vue ({
     el: "body",
-    router:router,
+    // router:router,
     data: function() {
         return {
             status: "connecting",
@@ -466,4 +465,5 @@ module.exports = new Vue ({
     // });
 
     // myApp.options.router=router
-// module.exports = myApp
+     MyApp.extend(VueRouter); 
+module.exports = MyApp
