@@ -601,10 +601,6 @@ class Web(tornado.web.Application):
             (r'/api/screen-rotation', ScreenRotationHandler),
             (r'/api/time', TimeHandler),
             (r'/api/remote-diagnostics', RemoteDiagnosticsHandler),
-            (r'/charles/(.*)', StaticFileHandler, {
-                'path': bbctrl.get_resource('charles/'),
-                'default_filename': 'index.html'
-            }),
             (r'/home/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'index.html'
@@ -628,7 +624,7 @@ class Web(tornado.web.Application):
         ]
 
         router = sockjs.tornado.SockJSRouter(SockJSConnection, '/sockjs')
-        router.app = self
+        router.app = self   
 
         tornado.web.Application.__init__(self, router.urls + handlers)
 
