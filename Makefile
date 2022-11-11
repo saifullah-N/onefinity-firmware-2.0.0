@@ -115,6 +115,7 @@ HTML       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML))
 
 HTML_NETWORK       := network
 HTML_NETWORK       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_NETWORK))
+
 HTML_CONFIG      := defaultConfig
 HTML_CONFIG       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_CONFIG))
 
@@ -123,6 +124,9 @@ HTML_DONE      := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_DONE))
 
 HTML_GETSTART      := getStarted
 HTML_GETSTART       := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_GETSTART))
+
+HTML_BTN	 := buttonType
+HTML_BTN	 := $(patsubst %,$(TARGET_DIR)/%.html,$(HTML_BTN))
 
 RESOURCES  := $(shell find src/resources -type f)
 RESOURCES  := $(patsubst src/resources/%,$(TARGET_DIR)/%,$(RESOURCES))
@@ -159,6 +163,8 @@ all: $(HTML_CONFIG) $(RESOURCES)
 all: $(HTML_DONE) $(RESOURCES)
 	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
 all: $(HTML_GETSTART) $(RESOURCES)
+	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
+all: $(HTML_BTN) $(RESOURCES)
 	@for SUB in $(SUBPROJECTS); do $(MAKE) -C src/$$SUB; done
 
 pkg: all $(AVR_FIRMWARE) bbserial
