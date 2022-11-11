@@ -617,6 +617,10 @@ class Web(tornado.web.Application):
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'done.html'
             }),
+            (r'/buttonType/(.*)', StaticFileHandler, {
+                'path': bbctrl.get_resource('http/'),
+                'default_filename': 'buttonType.html'
+            }),
             (r'/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'getStarted.html'

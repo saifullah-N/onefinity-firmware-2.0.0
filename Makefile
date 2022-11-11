@@ -235,15 +235,15 @@ $(TARGET_DIR)/defaultConfig.html: src/resources/config-template.json
 $(TARGET_DIR)/defaultConfig.html: $(wildcard src/resources/onefinity*defaults.json)
 $(TARGET_DIR)/defaultConfig.html: $(wildcard src/svelte-components/dist/*)
 
-$(TARGET_DIR)/getStarted.html: build/templates.pug
-$(TARGET_DIR)/getStarted.html: $(wildcard src/static/js/*)
-$(TARGET_DIR)/getStarted.html: $(wildcard src/static/css/*)
-$(TARGET_DIR)/getStarted.html: $(wildcard src/pug/templates/*)
-$(TARGET_DIR)/getStarted.html: $(wildcard src/js/*)
-$(TARGET_DIR)/getStarted.html: $(wildcard src/stylus/*)
-$(TARGET_DIR)/getStarted.html: src/resources/config-template.json
-$(TARGET_DIR)/getStarted.html: $(wildcard src/resources/onefinity*defaults.json)
-$(TARGET_DIR)/getStarted.html: $(wildcard src/svelte-components/dist/*)
+# $(TARGET_DIR)/getStarted.html: build/templates.pug
+# $(TARGET_DIR)/getStarted.html: $(wildcard src/static/js/*)
+# $(TARGET_DIR)/getStarted.html: $(wildcard src/static/css/*)
+# $(TARGET_DIR)/getStarted.html: $(wildcard src/pug/templates/*)
+# $(TARGET_DIR)/getStarted.html: $(wildcard src/js/*)
+# $(TARGET_DIR)/getStarted.html: $(wildcard src/stylus/*)
+# $(TARGET_DIR)/getStarted.html: src/resources/config-template.json
+# $(TARGET_DIR)/getStarted.html: $(wildcard src/resources/onefinity*defaults.json)
+# $(TARGET_DIR)/getStarted.html: $(wildcard src/svelte-components/dist/*)
 
 
 # $(TARGET_DIR)/done.html: build/templates.pug
