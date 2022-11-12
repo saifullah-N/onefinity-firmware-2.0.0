@@ -32,7 +32,8 @@
     }
 
     async function onConfirm() {
-        rebooting = true;
+        
+        rebooting = !document.location.pathname.includes("network")
 
         await api.PUT("network", {
             wifi: {
