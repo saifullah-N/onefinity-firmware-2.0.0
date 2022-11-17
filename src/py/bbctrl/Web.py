@@ -11,7 +11,7 @@
 # from urllib.request import urlopen
 
 
-# # class ButtonTypeHandler(bbctrl.APIHandler):
+# # class (bbctrl.APIHandler):ButtonTypeHandler
 # #     def put_ok(self, value):
     #   def put(self,value):
 # #         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
@@ -716,6 +716,19 @@ class RebootHandler(bbctrl.APIHandler):
         subprocess.Popen(['reboot'])
 
 
+class ButtonTypeHandler(bbctrl.APIHandler):
+    def put(self,value):
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
+        subprocess.Popen(['mount','-o','remount,rw','/boot'])
+        subprocess.Popen(['echo',value])
+# #         if(value =="geh"):
+# #     # openjson check button field
+# #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
+# #         elif(value=='aef'):
+# #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
+# #         subprocess.Popen(['mount','-o','remount,ro','/boot'])
+# #     # subprocess.Popen(['mount -o remount,ro /boot'])
+
 class ShutdownHandler(bbctrl.APIHandler):
 
     def put_ok(self):
@@ -1292,6 +1305,7 @@ class Web(tornado.web.Application):
             (r'/api/screen-rotation', ScreenRotationHandler),
             (r'/api/time', TimeHandler),
             (r'/api/remote-diagnostics', RemoteDiagnosticsHandler),
+            (r'/api/setButtonType', ButtonTypeHandler),
             (r'/home/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'index.html'
