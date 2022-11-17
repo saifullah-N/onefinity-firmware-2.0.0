@@ -717,13 +717,14 @@ class RebootHandler(bbctrl.APIHandler):
 
 
 class ButtonTypeHandler(bbctrl.APIHandler):
-    def put_ok(self):
-        value = self.json["button"]
+    def prepare(self):
+        value = self.json
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
-        subprocess.Popen(['mount','-o','remount,rw','/boot'])
+        subprocess.Popen(['mount','-o','remount,rw','/boot','/config.txt'])
+        subprocess.Popen(['cat','config.txt'])
         subprocess.Popen(['echo',value])
-        if(value =="rock"):
-            subprocess.Popen(['mkdir','Iwork'])
+        # if(value =="rock"):
+            # subprocess.Popen(['mkdir','Iwork'])
 # #     # openjson check button field
 # #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
 # #         elif(value=='aef'):
