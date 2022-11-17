@@ -251,15 +251,15 @@ $(TARGET_DIR)/defaultConfig.html: $(wildcard src/svelte-components/dist/*)
 # $(TARGET_DIR)/getStarted.html: $(wildcard src/svelte-components/dist/*)
 
 
-# $(TARGET_DIR)/buttonType.html: build/templates.pug
-# $(TARGET_DIR)/buttonType.html: $(wildcard src/static/js/*)
-# $(TARGET_DIR)/buttonType.html: $(wildcard src/static/css/*)
-# $(TARGET_DIR)/buttonType.html: $(wildcard src/pug/templates/*)
-# $(TARGET_DIR)/buttonType.html: $(wildcard src/js/*)
-# $(TARGET_DIR)/buttonType.html: $(wildcard src/stylus/*)
-# $(TARGET_DIR)/buttonType.html: src/resources/config-template.json
-# $(TARGET_DIR)/buttonType.html: $(wildcard src/resources/onefinity*defaults.json)
-# $(TARGET_DIR)/buttonType.html: $(wildcard src/svelte-components/dist/*)
+$(TARGET_DIR)/buttonType.html: build/templates.pug
+$(TARGET_DIR)/buttonType.html: $(wildcard src/static/js/*)
+$(TARGET_DIR)/buttonType.html: $(wildcard src/static/css/*)
+$(TARGET_DIR)/buttonType.html: $(wildcard src/pug/templates/*)
+$(TARGET_DIR)/buttonType.html: $(wildcard src/js/*)
+$(TARGET_DIR)/buttonType.html: $(wildcard src/stylus/*)
+$(TARGET_DIR)/buttonType.html: src/resources/config-template.json
+$(TARGET_DIR)/buttonType.html: $(wildcard src/resources/onefinity*defaults.json)
+$(TARGET_DIR)/buttonType.html: $(wildcard src/svelte-components/dist/*)
 
 
 

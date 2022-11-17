@@ -11,6 +11,18 @@ import tornado
 from urllib.request import urlopen
 
 
+class ButtonTypeHandler(bbctrl.APIHandler):
+    def put_ok(self, value):
+        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
+        subprocess.Popen(['mount','-o','remount,rw','/boot'])
+        if(value =="geh"):
+    # openjson check button field
+            subprocess.Popen(['mount','-o','remount,rw','/boot'])
+        elif(value=='aef'):
+            subprocess.Popen(['mount','-o','remount,rw','/boot'])
+        subprocess.Popen(['mount','-o','remount,ro','/boot'])
+    # subprocess.Popen(['mount -o remount,ro /boot'])
+
 def call_get_output(cmd):
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
     s = p.communicate()[0].decode('utf-8')
@@ -152,7 +164,7 @@ class ConfigDownloadHandler(bbctrl.APIHandler):
     def get(self):
         self.write_json(self.get_ctrl().config.load(), pretty=True)
 
-
+# !!
 class ConfigSaveHandler(bbctrl.APIHandler):
 
     def put_ok(self):
@@ -318,7 +330,7 @@ class OverrideFeedHandler(bbctrl.APIHandler):
     def put_ok(self, value):
         self.get_ctrl().mach.override_feed(float(value))
 
-
+# !
 class OverrideSpeedHandler(bbctrl.APIHandler):
 
     def put_ok(self, value):
@@ -549,6 +561,7 @@ class Web(tornado.web.Application):
         self.args = args
         self.ioloop = ioloop
         self.ctrls = {}
+        self.currentSettings
 
         # Init camera
         if not args.disable_camera:
@@ -566,6 +579,7 @@ class Web(tornado.web.Application):
             self.monitor = bbctrl.MonitorTemp(self)
 
         handlers = [
+            (r'/api/setButtonType',ButtonTypeHandler)
             (r'/websocket', WSConnection),
             (r'/api/log', LogHandler),
             (r'/api/message/(\d+)/ack', MessageAckHandler),
@@ -623,7 +637,7 @@ class Web(tornado.web.Application):
             }),
             (r'/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
-                'default_filename': 'getStarted.html'
+                    'default_filename': 'getStarted.html'
             }),
         ]
 

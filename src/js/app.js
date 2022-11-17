@@ -143,6 +143,7 @@ module.exports = new Vue({
         "admin-network-view" : require("./admin-network-view"),
         "help-view": require("./help-view"),
         "default-config-view": require("./default-config"),
+        "button-controller-view":require('./button-controller'),
         "cheat-sheet-view": {
             template: "#cheat-sheet-view-template",
             data: function() {
@@ -399,6 +400,10 @@ module.exports = new Vue({
                !hash.trim().length
              ) {
                location.hash = "default-config";
+               return;
+             }
+             if (location.pathname == "/buttonType/" && !hash.trim().length) {
+               location.hash = "button-controller";
                return;
              }
 
