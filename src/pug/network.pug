@@ -35,32 +35,14 @@ html(lang="en")
                 | Upgrade to v{{latestVersion}}
               .fa.fa-exclamation-circle.upgrade-attention(v-if="show_upgrade()")
 
-          .pi-temp-warning
-            .fa.fa-thermometer-full(class="error",
-              v-if="80 <= state.rpi_temp",
-              title="Raspberry Pi temperature too high.")
 
-          .whitespace
-
-          .video(title="Plug camera into USB.\n" +
-            "Left click to toggle video size.\n" +
-            "Right click to toggle crosshair.", @click="toggle_video",
-            @contextmenu="toggle_crosshair", :class="video_size")
-            .crosshair(v-if="crosshair")
-              .vertical
-              .horizontal
-              .box
-            img(src="/api/video")
-
-          .estop(:class="{active: state.es}")
-            estop(@click="estop")
         div(style="text-align:center")
           .content(class="{{currentView}}-view")
             component(:is="currentView + '-view'", :index="index",
               :config="config", :template="template", :state="state", keep-alive)  
-          div(style='display:flex; justify-content: space-around;')
-            a(href='/network/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;') next
+          div(style='display:flex; justify-content: space-between;')
             a(href='/home/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;') skip
+            a(href='/done/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;') next
 
     message.error-message(:show.sync="errorShow")
       div(slot="header")

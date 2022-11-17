@@ -13,8 +13,10 @@
 
 # # class ButtonTypeHandler(bbctrl.APIHandler):
 # #     def put_ok(self, value):
+    #   def put(self,value):
 # #         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
 # #         subprocess.Popen(['mount','-o','remount,rw','/boot'])
+        # subprocess.Popen(['echo',value])
 # #         if(value =="geh"):
 # #     # openjson check button field
 # #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
@@ -577,7 +579,7 @@
 #         if not self.args.demo:
 #             self.get_ctrl()
 #             self.monitor = bbctrl.MonitorTemp(self)
-
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!
 #         handlers = [
 #             (r'/websocket', WSConnection),
 #             (r'/api/log', LogHandler),
