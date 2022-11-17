@@ -57,7 +57,7 @@ module.exports = {
       };
          console.log(this.button_type)
       try {
-        await api.put("setButtonType",config);
+        await api.put("set-button-yype", config);
         this.confirmReset = false;
         this.$dispatch("update");
         SvelteComponents.showDialog("Message", {
