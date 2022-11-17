@@ -59,7 +59,7 @@ module.exports = {
        
          console.log(this.button_type)
       try {
-        await api.put("set-button-type", {"value":"hi"});
+        await api.put("set-button-type",config);
         this.confirmReset = false;
         this.$dispatch("update");
         SvelteComponents.showDialog("Message", {
