@@ -54,13 +54,13 @@ html(lang="en")
 
           .estop(:class="{active: state.es}")
             estop(@click="estop")
-
-        .content(class="{{currentView}}-view")
-          component(:is="currentView + '-view'", :index="index",
-            :config="config", :template="template", :state="state", keep-alive)  
-        div(style='display:flex; justify-content: space-around;')
-          a(href='/network/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;') next
-          a(href='/home/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;') skip
+        div(style="text-align:center")
+          .content(class="{{currentView}}-view")
+            component(:is="currentView + '-view'", :index="index",
+              :config="config", :template="template", :state="state", keep-alive)  
+          div(style='display:flex; justify-content: space-around;')
+            a(href='/network/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;') next
+            a(href='/home/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;') skip
 
     message.error-message(:show.sync="errorShow")
       div(slot="header")
