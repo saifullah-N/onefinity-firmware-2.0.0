@@ -1,7 +1,7 @@
 script#default-config(type="text/x-template")
   #admin-general
       div(style="text-align:center")   
-        message(:show.sync="true")
+          //- message(:show.sync="confirmReset")
           h3(slot="header") Setup Config 
           p(slot="body") Non-network configuration changes will be lost.
           p(slot="body") Select defaults:
