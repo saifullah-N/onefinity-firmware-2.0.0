@@ -52,12 +52,14 @@ module.exports = {
   methods: {
 
     reset: async function () {
-      const config = {
-        button: this.button_type,
-      };
+      // const config = {
+      //   button: this.button_type,
+      // };
+       const config = { button:this.button_type}
+       
          console.log(this.button_type)
       try {
-        await api.put("set-button-yype", config);
+        await api.put("set-button-type", {"value":"hi"});
         this.confirmReset = false;
         this.$dispatch("update");
         SvelteComponents.showDialog("Message", {
