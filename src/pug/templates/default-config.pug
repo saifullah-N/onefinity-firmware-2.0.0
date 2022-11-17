@@ -2,20 +2,20 @@ script#default-config(type="text/x-template")
   #admin-general
       div(style="text-align:center")   
           //- message(:show.sync="confirmReset")
-          h3(slot="header") Setup Config 
+          h1 Setup Config 
           p(slot="body") Non-network configuration changes will be lost.
-          p(slot="body") Select defaults:
-          div(style="display:flex;flex-direction:column;justify-content:space-between;height:50vh")
-            div
+          h2 Select defaults:
+          div(style="display:flex;flex-direction:column;justify-content:space-between;")
+            div(style="padding:15px")
               input#tab1(type="radio", name="reset_variant" @click="reset_variant = 'machinist_x35',")
               label(for="tab1", title="Machinist X-35",style="font-size:25px") Machinist X-35
-            div
+            div(style="padding:15px")(style="padding:15px")(style="padding:15px")
               input#tab2(type="radio", name="reset_variant" @click="reset_variant = 'woodworker_x35'")
               label(for="tab2", title="Woodworker X-35",style="font-size:25px") Woodworker X-35
-            div
+            div(style="padding:15px")(style="padding:15px")
               input#tab3(type="radio", name="reset_variant" @click="reset_variant = 'woodworker_x50'")
               label(for="tab3", title="Woodworker X-50",style="font-size:25px") Woodworker X-50
-            div
+            div(style="padding:15px")
               input#tab4(type="radio", name="reset_variant" @click="reset_variant = 'journeyman_x50'")
               label(for="tab4", title="Journeyman X-50",style="font-size:25px") Journeyman X-50
           div(slot="footer")
