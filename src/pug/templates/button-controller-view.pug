@@ -1,9 +1,8 @@
 script#button-controller-view(type="text/x-template")
-        div#button-controller(style="display:flex;justify-content:space-betweeen")
-            input#push(type="radio", name="set_button_type" @click="button_type = 'push-button'")
-                label(for='push' title="Push Button") Push Button
+  div#button-controller(style="display:flex;justify-content:space-betweeen")
+    input#push(type="radio", name="set_button_type" @click="button_type = 'push-button'")
+    label(for='push' title="Push Button") Push Button
 
-            input#rocker(type="radio", name="reset_variant" @click="button_type = 'rocker-button'")
-                label(for='rocker',title="Rocker Button") Rocker Button
-
-            button(@click='set_button_type()') confirm
+    input#rocker(type="radio", name="reset_variant" @click="button_type = 'rocker-button'")
+    label(for='rocker',title="Rocker Button") Rocker Button
+    button(@click='set_button_type()') confirm
