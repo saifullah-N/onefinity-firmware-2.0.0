@@ -720,7 +720,7 @@ class ButtonTypeHandler(bbctrl.APIHandler):
     def put_ok(self):
         # self.get_ctrl().config.save(self.json)
         value = self.json
-        self.get_log().info()
+        # self.get_log()
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
         subprocess.Popen(['mount','-o','remount,rw','/boot','/config.txt'])
         subprocess.Popen(['cat','config.txt'])
