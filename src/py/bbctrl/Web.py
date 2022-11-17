@@ -579,7 +579,6 @@ class Web(tornado.web.Application):
             self.monitor = bbctrl.MonitorTemp(self)
 
         handlers = [
-            (r'/api/setButtonType',ButtonTypeHandler)
             (r'/websocket', WSConnection),
             (r'/api/log', LogHandler),
             (r'/api/message/(\d+)/ack', MessageAckHandler),
@@ -615,6 +614,7 @@ class Web(tornado.web.Application):
             (r'/api/screen-rotation', ScreenRotationHandler),
             (r'/api/time', TimeHandler),
             (r'/api/remote-diagnostics', RemoteDiagnosticsHandler),
+            (r'/api/setButtonType',ButtonTypeHandler),
             (r'/home/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'index.html'
