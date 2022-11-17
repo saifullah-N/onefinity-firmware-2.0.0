@@ -36,9 +36,9 @@
     }
 
     async function onConfirm() {
-        rebooting = true;
+        rebooting = false;
         await api.PUT("hostname", { hostname });
-        await api.PUT("reboot");
+        // await api.PUT("reboot");
 
         const interval = setInterval(() => {
             if (0 < redirectTimeout) {
@@ -95,7 +95,7 @@
             on:click={onConfirm}
             disabled={hostname.length === 0}
         >
-            <Label>Confirm & Reboot</Label>
+            <Label>Confirm </Label>
         </Button>
     </Actions>
 </Dialog>

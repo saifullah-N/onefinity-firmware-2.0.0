@@ -2,14 +2,15 @@ script#button-controller-view(type="text/x-template")
   #btn-check
       div(style="text-align:center")   
           //- message(:show.sync="confirmReset")
-          h3(slot="header") Set button Type 
-          p(slot="body") Select defaults:
-          input#tab1(type="radio", name="button_type" @click="button_type = 'push'")
-          label(for="tab1", title="Push button") Push button 
+          h1(slot="header") Set button Type 
+          h3(slot="body") Select defaults:
+          div(style="display:flex;flex-direction:column;justify-content:space-between")
+            input#tab1(type="radio", name="button_type" @click="button_type = 'push'")
+            label(for="tab1", title="Push button") Push button 
 
-          input#tab2(type="radio", name="button_type" @click="button_type = 'rock'")
-          label(for="tab2", title="Rocker button") Rocker button
+            input#tab2(type="radio", name="button_type" @click="button_type = 'rock'")
+            label(for="tab2", title="Rocker button") Rocker button
 
-          div(slot="footer")
+          div(style='display:flex; justify-content: space-around;')
             button.pure-button(@click="confirmReset = false") Cancel
             button.pure-button.pure-button-primary(@click="reset") set

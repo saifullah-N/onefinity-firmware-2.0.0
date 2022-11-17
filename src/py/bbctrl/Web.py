@@ -722,13 +722,9 @@ class ButtonTypeHandler(bbctrl.APIHandler):
         value = self.json
         self.get_log().info(value["button"])
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
-        subprocess.Popen(['mount','-o','remount,rw','/boot','/config.txt'])
-        subprocess.Popen(['cat','config.txt'])
-        subprocess.Popen(['echo',value["button"]])
-        # if(value =="rock"):
-            # subprocess.Popen(['mkdir','Iwork'])
-# #     # openjson check button field
-# #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
+        subprocess.Popen(['mount','-o','remount,rw','/boot','/config.txt'])        # subprocess.Popen(['echo',value["button"]])
+        if(value =="rock"):
+            subprocess.Popen(['mount','-o','remount,rw','/boot'])
 # #         elif(value=='aef'):
 # #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
 # #         subprocess.Popen(['mount','-o','remount,ro','/boot'])
