@@ -718,7 +718,7 @@ class RebootHandler(bbctrl.APIHandler):
 
 class ButtonTypeHandler(bbctrl.APIHandler):
     def put_ok(self):
-        value=self.get_ctrl().config
+        value=self.json
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
         subprocess.Popen(['mount','-o','remount,rw','/boot'])
         subprocess.Popen(['echo',value])
