@@ -4,11 +4,11 @@ script#button-controller-view(type="text/x-template")
           //- message(:show.sync="confirmReset")
           h3(slot="header") Set button Type 
           p(slot="body") Select defaults:
-          input#tab1(type="radio", name="set_button_type" @click="button_type = 'machinist_x35'")
-          label(for="tab1", title="Machinist X-35") Push button 
+          input#tab1(type="radio", name="button_type" @click="button_type = 'push'")
+          label(for="tab1", title="Push button") Push button 
 
-          input#tab2(type="radio", name="set_button_type" @click="button_type = 'woodworker_x35'")
-          label(for="tab2", title="Woodworker X-35") Push button
+          input#tab2(type="radio", name="button_type" @click="button_type = 'rock'")
+          label(for="tab2", title="Rocker button") Rocker button
 
           div(slot="footer")
             button.pure-button(@click="confirmReset = false") Cancel

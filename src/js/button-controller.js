@@ -53,9 +53,9 @@ module.exports = {
 
     reset: async function () {
       const config = {
-        button: button_type,
+        button: this.button_type,
       };
-
+         console.log(this.button_type)
       try {
         // await api.put("config/save", config);
         this.confirmReset = false;
