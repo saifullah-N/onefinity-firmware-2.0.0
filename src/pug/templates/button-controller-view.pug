@@ -10,9 +10,9 @@ script#button-controller-view(type="text/x-template")
           h3(slot="body") Select defaults:
           div(style="display:flex;flex-direction:row;justify-content:space-between ;height:30%;")
             div(style="padding:15px",@click="button_type = 'push'" ,)
-                img(src="./images/pushButton.png", alt="push button" :class="button_type=='push'?'selected':''")
+                img(src="./images/pushButton.png", style="display:inline", alt="push button" :class="button_type=='push'?'selected':''")
             div(style="padding:15px ",)
-                img(src="./images/rockerButton.png", alt="push button" @click="button_type = 'rock'" ,:class="button_type=='rock'?'selected':''")
+                img(src="./images/rockerButton.png",style="display:inline", alt="push button" @click="button_type = 'rock'" ,:class="button_type=='rock'?'selected':''")
           div(style='display:flex; justify-content: space-around;')
           button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;',@click="location.replace('/home/')") skip
           button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;', @click="set_btn_type" :disabled="!button_type") next
