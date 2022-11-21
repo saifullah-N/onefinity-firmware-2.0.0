@@ -40,20 +40,8 @@ html(lang="en")
               v-if="80 <= state.rpi_temp",
               title="Raspberry Pi temperature too high.")
 
-          .whitespace
+          
 
-          .video(title="Plug camera into USB.\n" +
-            "Left click to toggle video size.\n" +
-            "Right click to toggle crosshair.", @click="toggle_video",
-            @contextmenu="toggle_crosshair", :class="video_size")
-            .crosshair(v-if="crosshair")
-              .vertical
-              .horizontal
-              .box
-            img(src="/api/video")
-
-          .estop(:class="{active: state.es}")
-            estop(@click="estop")
 
         .content(class="{{currentView}}-view")
           component(:is="currentView + '-view'", :index="index",
