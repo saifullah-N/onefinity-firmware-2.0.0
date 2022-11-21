@@ -721,15 +721,14 @@ class ButtonTypeHandler(bbctrl.APIHandler):
         # self.get_ctrl().config.save(self.json)
         value = self.json
         self.get_log().info(value["button"])
-        print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
-        subprocess.Popen(['mount','-o','remount,rw','/boot','/config.txt'])        # subprocess.Popen(['echo',value["button"]])
+        subprocess.Popen(['mount','-o','remount,rw','/boot'])        # subprocess.Popen(['echo',value["button"]])
         if (value["button"] == "rock"):
             subprocess.Popen(['sed', '-i', "s/dtoverlay=gpio-poweroff,gpiopin=21/#rock", '/boot/config.txt'])
         elif(value["button"]=='push'):
             subprocess.Popen( ['sed', '-i', "s/#rock/dtoverlay=gpio-poweroff,gpiopin=21/", '/boot/config.txt'])
 # #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
 # #         subprocess.Popen(['mount','-o','remount,ro','/boot'])
-# #     # subprocess.Popen(['mount -o remount,ro /boot'])
+        subprocess.Popen(['mount -o remount,ro /boot'])
 
 class ShutdownHandler(bbctrl.APIHandler):
 
