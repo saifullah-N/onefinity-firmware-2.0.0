@@ -724,8 +724,9 @@ class ButtonTypeHandler(bbctrl.APIHandler):
         print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>.",value)
         subprocess.Popen(['mount','-o','remount,rw','/boot','/config.txt'])        # subprocess.Popen(['echo',value["button"]])
         if(value =="rock"):
-            subprocess.Popen(['mount','-o','remount,rw','/boot'])
-# #         elif(value=='aef'):
+            subprocess.Popen(['sed', '-i', "s@dtoverlay=gpio-poweroff,gpiopin=21@#dtoverlay=gpio-poweroff,gpiopin=21@", '/boot/config.txt'])
+        elif(value=='push'):
+            subprocess.Popen( ['sed', '-i', "s@#dtoverlay=gpio-poweroff,gpiopin=21@dtoverlay=gpio-poweroff,gpiopin=21@", '/boot/config.txt'])
 # #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
 # #         subprocess.Popen(['mount','-o','remount,ro','/boot'])
 # #     # subprocess.Popen(['mount -o remount,ro /boot'])
