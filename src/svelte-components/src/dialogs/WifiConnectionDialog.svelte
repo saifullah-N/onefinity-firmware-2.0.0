@@ -107,7 +107,7 @@
             disabled={needPassword &&
                 (password.length < 8 || password.length > 128)}
         >
-            <Label>{connectOrDisconnect} & Reboot</Label>
+            <Label>{connectOrDisconnect}</Label>
         </Button>
     </Actions>
 </Dialog>

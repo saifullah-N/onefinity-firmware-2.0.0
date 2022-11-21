@@ -12,6 +12,10 @@ script#button-controller-view(type="text/x-template")
                 input#tab2(type="radio", name="button_type" @click="button_type = 'rock'",style="font-size:25px")
                 label(for="tab2", title="Rocker button",style="font-size:25px") Rocker button
 
-          div(slot="footer")
-            button.pure-button(@click="confirmReset = false") Cancel
-            button.pure-button.pure-button-primary(@click="reset") set
+          //- div(slot="footer")
+          //-   button.pure-button(@click="confirmReset = false") Cancel
+          //-   button.pure-button.pure-button-primary(@click="reset") set
+          div(style='display:flex; justify-content: space-around;')
+          button(href='/home/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;') skip
+          button(href='/done/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;'  (@click="set_btn_type") ) next
+

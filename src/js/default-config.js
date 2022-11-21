@@ -86,6 +86,7 @@ module.exports = {
           title: "Success",
           message: "Configuration restored",
         });
+        location.replace("/network/");
       } catch (error) {
         console.error("Restore failed:", error);
         alert("Restore failed");
