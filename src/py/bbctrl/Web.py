@@ -730,8 +730,7 @@ class ButtonTypeHandler(bbctrl.APIHandler):
             subprocess.Popen( ['sed', '-i', "s/#rock/dtoverlay=gpio-poweroff,gpiopin=21/", '/boot/config.txt'])
             self.get_log().info("btn type set")
 # #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
-        subprocess.Popen(
-            ['sudo', 'mount', '-o', 'remount,ro', '/boot/'])
+        # subprocess.Popen(['sudo', 'mount', '-o', 'remount,ro', '/boot/'])
         # subprocess.Popen(['mount -o remount,ro /boot'])
 
 class ShutdownHandler(bbctrl.APIHandler):
