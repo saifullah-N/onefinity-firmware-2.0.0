@@ -723,7 +723,8 @@ class ButtonTypeHandler(bbctrl.APIHandler):
         self.get_log().info(value["button"])
         subprocess.Popen(['mount','-o','remount,rw','/boot/config.txt'])        # subprocess.Popen(['echo',value["button"]])
         if (value["button"] == "rock"):
-            subprocess.Popen(['sed', '-i', "s/dtoverlay=gpio-poweroff,gpiopin=21/#rock", '/boot/config.txt'])
+            # subprocess.Popen(['sed', '-i', "s/dtoverlay=gpio-poweroff,gpiopin=21/#rock", '/boot/config.txt'])
+            subprocess.Popen(['sed', '-i', "s/#shutdown/#rock", '/boot/config.txt'])
             self.get_log().info("btn type set")
         elif(value["button"]=='push'):
             subprocess.Popen( ['sed', '-i', "s/#rock/dtoverlay=gpio-poweroff,gpiopin=21/", '/boot/config.txt'])
