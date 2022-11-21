@@ -18,7 +18,7 @@ script#button-controller-view(type="text/x-template")
                 img(src="./images/pushButton.png", style="display:inline", alt="push button" :class="button_type=='push'?'selected':'pxSize'")
             div(style="padding:15px ",)
                 img(src="./images/rockerButton.png",style="display:inline", alt="push button" @click="button_type = 'rock'" ,:class="button_type=='rock'?'selected':'pxSize'")
-          div(style='display:flex; justify-content: space-around;')
+          div(style='display:flex; justify-content: space-around; width :40vw')
             button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;',@click="location.replace('/home/')") skip
             button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;', @click="set_btn_type" :disabled="!button_type") next
 
