@@ -1,21 +1,27 @@
 script#button-controller-view(type="text/x-template")
   #btn-check
+      style.
+        .selected{
+          border:blue 2px solid;
+        }
       div(style="text-align:center")   
           //- message(:show.sync="confirmReset")
           h1(slot="header") Set button Type 
           h3(slot="body") Select defaults:
           div(style="display:flex;flex-direction:column;justify-content:space-between")
-            div(style="padding:15px")
-                input#tab1(type="radio", style="font-size:25px" name="button_type" @click="button_type = 'push'")
-                label(for="tab1", title="Push button",style="font-size:25px") Push button 
-            div(style="padding:15px")
-                input#tab2(type="radio", name="button_type" @click="button_type = 'rock'",style="font-size:25px")
-                label(for="tab2", title="Rocker button",style="font-size:25px") Rocker button
+            div(style="padding:15px",@click="button_type = 'push'" ,:class="{{(push)?'selected':''}}")
+                //- input#tab1(type="radio", style="font-size:25px" name="button_type" ")
+                //- label(for="tab1", title="Push button",style="font-size:25px") Push button 
+                img(src="./images/pushButton.png", alt="push button")
+            div(style="padding:15px ", @click="button_type = 'rock'" ,:class="{{(push)?'selected':''}}")
+                img(src="./images/rockerButton.png", alt="push button")
+                //- input#tab2(type="radio", name="button_type",style="font-size:25px")
+                //- label(for="tab2", title="Rocker button",style="font-size:25px") Rocker button
 
           //- div(slot="footer")
           //-   button.pure-button(@click="confirmReset = false") Cancel
           //-   button.pure-button.pure-button-primary(@click="reset") set
           div(style='display:flex; justify-content: space-around;')
-          button(href='/home/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;') skip
-          button(href='/done/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;', @click="set_btn_type") next
+          button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;',@click="location.replace('/home/')") skip
+          button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;', @click="set_btn_type") next
 

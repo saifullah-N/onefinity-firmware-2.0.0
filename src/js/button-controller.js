@@ -33,6 +33,7 @@ module.exports = {
           title: "Success",
           message: "button type set",
         });
+        location.replace('/done/')
       } catch (error) {
         console.error("button settings failed:", error);
         alert("OOPS! an error has occured");
