@@ -13,13 +13,13 @@ script#button-controller-view(type="text/x-template")
           //- message(:show.sync="confirmReset")
           h1(slot="header") Set button Type 
           h3(slot="body") Select defaults:
-          div(style="display:flex;flex-direction:row;justify-content:space-around ;height:30%; justify-content: space-around; flex-wrap:wrap;")
+          div(style="display:flex;flex-direction:row;justify-content:space-around ;height:70vh; justify-content: space-around; flex-wrap:wrap;")
             div(style="padding:15px",@click="button_type = 'push'" ,)
                 img(src="./images/pushButton.png", style="display:inline", alt="push button" :class="button_type=='push'?'selected':'pxSize'")
             div(style="padding:15px ",)
                 img(src="./images/rockerButton.png",style="display:inline", alt="push button" @click="button_type = 'rock'" ,:class="button_type=='rock'?'selected':'pxSize'")
           div(style='text-align:center')
-            div(style='display:flex; justify-content: space-around; width :60vw')
-              button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;',@click="location.replace('/home/')") skip
-              button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;', @click="set_btn_type" :disabled="!button_type") next
+            div(style='display:flex; justify-content:center')
+              button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none; margin:4vw;',@click="location.replace('/home/')") skip
+              button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;margin:4vw;', @click="set_btn_type" :disabled="!button_type") next
 

@@ -59,6 +59,7 @@
     <div class="pure-form pure-form-aligned">
         <div class="pure-control-group">
             <label for="hostname">Hostname</label>
+            <span>
             <Card id="hostname" variant="outlined">
                 <Text id="hostname">
                     {$networkInfo.hostname}
@@ -67,6 +68,7 @@
             <Button on:click={onChangeHostname} touch variant="raised">
                 <Label>Change</Label>
             </Button>
+        </span>
         </div>
     </div>
 
@@ -150,6 +152,7 @@
                 vertical-align: top;
                 font-size: 15pt;
                 font-weight: bold;
+                text-align: left;
             }
 
             button {
