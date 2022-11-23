@@ -721,16 +721,16 @@ class ButtonTypeHandler(bbctrl.APIHandler):
         # self.get_ctrl().config.save(self.json)
         value = self.json
         self.get_log().info(value["button"])
-        subprocess.Popen(['sudo','mount','-o','remount,rw','/boot'])
+        # subprocess.Popen(['sudo','mount','-o','remount,rw','/boot'])
         if (value["button"] == "rock"):
             # subprocess.Popen(['sed', '-i', "s/dtoverlay=gpio-poweroff,gpiopin=21/#rock", '/boot/config.txt'])
-            subprocess.Popen(['sed', '-i', "s/#shutdown/#rock", '/boot/config.txt'])
+            # subprocess.Popen([  'sed', '-i', "s/#shutdown/#rock", '/boot/config.txt'])
+            subprocess.Popen('sudo mount -o remount,rw /boot && sudo sed -i "s/dtoverlay=gpio-poweroff,gpiopin=21/#rock"  /boot/config.txt | sudo su', stdout=subprocess.PIPE, shell=True)
             self.get_log().info("btn type set")
         elif(value["button"]=='push'):
             subprocess.Popen( ['sed', '-i', "s/#rock/dtoverlay=gpio-poweroff,gpiopin=21/", '/boot/config.txt'])
             self.get_log().info("btn type set")
-# #             subprocess.Popen(['mount','-o','remount,rw','/boot'])
-        # subprocess.Popen(['sudo', 'mount', '-o', 'remount,ro', '/boot/'])
+#              subprocess.Popen(['mount','-o','remount,rw','/boot'])
         # subprocess.Popen(['mount -o remount,ro /boot'])
 
 class ShutdownHandler(bbctrl.APIHandler):
