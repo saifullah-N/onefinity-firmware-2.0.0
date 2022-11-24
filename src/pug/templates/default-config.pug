@@ -20,5 +20,5 @@ script#default-config(type="text/x-template")
               label(for="tab4", title="Journeyman X-50",style="font-size:25px") Journeyman X-50
           div(style='display:flex; justify-content: space-evenly; ')
             button( style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:12px ; border-radius:8%;text-decoration: none;' @click="location.replace('/home/')") skip
-            button( :style="!disabled?{color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;margin:0 4vw;}:{color:white ; background-color:#b0b0b0; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;margin:0 4vw;}", @click="reset" :disabled="!reset_variant") next
+            button( :style="reset_variant?{color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;margin:0 4vw;}:{color:white ; background-color:#b0b0b0; font-size:20px; font-family:sans-serif ; padding:12px ; border-radius:8%;text-decoration: none;margin:0 4vw;}", @click="reset" :disabled="!reset_variant") next
 
