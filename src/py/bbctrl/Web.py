@@ -128,7 +128,7 @@ class NetworkHandler(bbctrl.APIHandler):
 
         wifi = self.json['wifi']
 
-        cmd = ['config-wifi', '-r']
+        cmd = ['config-wifi']
 
         if not wifi['enabled']:
             cmd += ['-d']
