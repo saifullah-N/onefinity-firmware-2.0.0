@@ -28,16 +28,15 @@ class InitialConfigurationHandler(bbctrl.APIHandler):
 
     def put_ok(self):
         value = self.json
-        self.get_log().info(str(value["setup"]))
+        # self.get_log().info(str(value["setup"]))
         if (value["setup"]):
-            configFile = open("onefinity-firmware/src/resources/onefinity_defaults.json", "r")
+            configFile = open("/var/lib/bbctrl/config.json", "r")
             json_object = json.load(configFile)
-            self.get_log().info(str(json_object))
             json_object["initalConfig"] = True
             configFile = open("sample_file.json", "w")
             json.dump(json_object, configFile)
             configFile.close()
-                    # subprocess.Popen(['reboot'])
+            subprocess.Popen(['reboot'])
 
 
 class ButtonTypeHandler(bbctrl.APIHandler):
@@ -573,6 +572,14 @@ class StaticFileHandler(tornado.web.StaticFileHandler):
 class Web(tornado.web.Application):
 
     def __init__(self, args, ioloop):
+        configFile = open("/var/lib/bbctrl/config.json", "r")
+        json_object = json.load(configFile)
+        page = ""
+        if(json_object["initalConfig"]): 
+            page="index.html"
+        else:
+            page = "getStarted.html"
+        
         self.args = args
         self.ioloop = ioloop
         self.ctrls = {}
@@ -591,7 +598,6 @@ class Web(tornado.web.Application):
         if not self.args.demo:
             self.get_ctrl()
             self.monitor = bbctrl.MonitorTemp(self)
-
         handlers = [
             (r'/websocket', WSConnection),
             (r'/api/log', LogHandler),
@@ -652,7 +658,7 @@ class Web(tornado.web.Application):
             }),
             (r'/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
-                'default_filename': 'getStarted.html'
+                'default_filename': page
             }),
         ]
 
