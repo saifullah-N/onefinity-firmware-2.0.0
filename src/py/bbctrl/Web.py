@@ -28,7 +28,7 @@ class InitialConfigurationHandler(bbctrl.APIHandler):
 
     def put_ok(self):
         value = self.json
-        self.get_log().info(value["setup"])
+        self.get_log().info(value)
         if (value["setup"]):
             configFile = open("onefinity-firmware/src/resources/onefinity_defaults.json", "r")
             json_object = json.load(configFile)
