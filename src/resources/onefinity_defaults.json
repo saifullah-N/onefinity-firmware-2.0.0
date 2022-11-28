@@ -376,6 +376,5 @@
     "tool-change": "(Runs on M6, tool change)\nM70\nG21\nS0\nM0 M6 (MSG, Change tool and attach probe)\nF100\n(probe to minimum z soft limit, which is -10)\nG38.2 Z-10\nG92 Z15.4\ng0 Z30\nM0 (MSG, Remove probe, start spindle)\nM72\n\n",
     "program-end": "(Runs on M2, program end)\nM2"
   },
-
-  "allSet":false
+  "initalConfig":false
 }

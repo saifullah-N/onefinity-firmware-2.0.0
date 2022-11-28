@@ -9,7 +9,7 @@ import sockjs.tornado
 import subprocess
 import tornado
 from urllib.request import urlopen
-
+import json
 
 def call_get_output(cmd):
     p = subprocess.Popen(cmd, stdout=subprocess.PIPE)
@@ -23,6 +23,20 @@ class RebootHandler(bbctrl.APIHandler):
 
     def put_ok(self):
         subprocess.Popen(['reboot'])
+        
+class InitialConfigurationHandler(bbctrl.APIHandler):
+
+    def put_ok(self):
+        value = self.json
+        self.get_log().info(value["setup"])
+        if (value["setup"]):
+            configFile = open("onefinity-firmware/src/resources/onefinity_defaults.json", "r")
+            json_object = json.load(configFile)
+            json_object["initalConfig"] = True
+            configFile = open("sample_file.json", "w")
+            json.dump(json_object, configFile)
+            configFile.close()
+                    # subprocess.Popen(['reboot'])
 
 
 class ButtonTypeHandler(bbctrl.APIHandler):
@@ -614,6 +628,7 @@ class Web(tornado.web.Application):
             (r'/api/time', TimeHandler),
             (r'/api/remote-diagnostics', RemoteDiagnosticsHandler),
             (r'/api/set-button-type', ButtonTypeHandler),
+            (r'/api/set-initial-config', InitialConfigurationHandler),
             (r'/home/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'index.html'
