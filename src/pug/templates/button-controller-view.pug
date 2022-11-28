@@ -2,11 +2,11 @@ script#button-controller-view(type="text/x-template")
   #btn-check
       style.
         .pxSize{
-          width:300px
+          width:7.5vw  
         }
         .selected{
           box-shadow:0 0 20px #0a74f5;
-          width:300px
+          width:7.5vw
 
         }
         .enabled{color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;margin:0 4vw;}
@@ -16,7 +16,7 @@ script#button-controller-view(type="text/x-template")
           //- message(:show.sync="confirmReset")
           h1(slot="header") Set button Type 
           h3(slot="body") Select defaults:
-          div(style="display:flex;flex-direction:row;justify-content:space-around ; justify-content: space-around; flex-wrap:wrap;")
+          div(style="display:flex;flex-direction:row;justify-content:space-around ; justify-content: space-around; flex-wrap:wrap;min-height:40vh")
             div(style="padding:15px",@click="button_type = 'push'" ,)
                 img(src="./images/pushButton.png", style="display:inline", alt="push button" :class="button_type=='push'?'selected':'pxSize'")
             div(style="padding:15px ",)
