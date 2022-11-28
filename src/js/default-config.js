@@ -117,5 +117,8 @@ module.exports = {
       this.config.admin["auto-check-upgrade"] = this.autoCheckUpgrade;
       this.$dispatch("config-changed");
     },
+    previous: function () {
+      location.replace("/");
+    },
   },
 };

@@ -23,6 +23,6 @@ script#button-controller-view(type="text/x-template")
                 img(src="./images/rockerButton.png",style="display:inline", alt="push button" @click="button_type = 'rock'" ,:class="button_type=='rock'?'selected':'pxSize'")
           div(style='text-align:center')
             div(style='display:flex; justify-content:center')
-              button( class="enabled",@click="location.replace('/network/')") previous 
+              button( class="enabled",@click="previous") previous 
               button( :class="button_type?'enabled':'disabled'", @click="set_btn_type" :disabled="!button_type") next
 

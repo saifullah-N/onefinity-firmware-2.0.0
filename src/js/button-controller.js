@@ -39,5 +39,9 @@ module.exports = {
         alert("OOPS! an error has occured");
       }
     },
+
+    previous:function() {
+     location.replace("/network/"); 
+    }
   },
 };
