@@ -26,7 +26,7 @@ module.exports = {
           title: "Success",
           message: "config-set",
         });
-        // location.replace("/home");
+       location.replace("/");
       } catch (error) {
         console.error(
           "there was a problem in settinng up initial configuration:",

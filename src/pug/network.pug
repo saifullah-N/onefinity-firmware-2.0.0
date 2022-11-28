@@ -41,7 +41,7 @@ html(lang="en")
             component(:is="currentView + '-view'", :index="index",
               :config="config", :template="template", :state="state", keep-alive)  
           div(style='display:flex; justify-content: space-around;')
-            a(href='/home/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:15px 40px ; border-radius:8%;text-decoration: none;') skip
+            a(href='/defaultConfig/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:15px 40px ; border-radius:8%;text-decoration: none;') previous 
             a(href='/buttonType/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;') next
 
     message.error-message(:show.sync="errorShow")
