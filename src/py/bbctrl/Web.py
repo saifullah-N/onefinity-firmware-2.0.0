@@ -30,12 +30,12 @@ class InitialConfigurationHandler(bbctrl.APIHandler):
         value = self.json
         # self.get_log().info(str(value["setup"]))
         if (value["setup"]):
-            configFile = open("/var/lib/bbctrl/config.json", "r")
-            json_object = json.load(configFile)
-            json_object["initalConfig"] = True
-            configFile = open("sample_file.json", "w")
-            json.dump(json_object, configFile)
-            configFile.close()
+            with open("/var/lib/bbctrl/config.json", "r+") as jsonFile:
+                data = json.load(jsonFile)
+                data["initalConfig"] = True
+                jsonFile.seek(0)  # rewind
+                json.dump(data, jsonFile)
+                jsonFile.truncate()
             subprocess.Popen(['reboot'])
 
 
