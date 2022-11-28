@@ -35,6 +35,7 @@ class InitialConfigurationHandler(bbctrl.APIHandler):
             json_object["initalConfig"] = True
             configFile = open("sample_file.json", "w")
             json.dump(json_object, configFile)
+            self.get_log().info(configFile)
             configFile.close()
                     # subprocess.Popen(['reboot'])
 

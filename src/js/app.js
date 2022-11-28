@@ -412,7 +412,7 @@ module.exports = new Vue({
         return;
       }
       if (location.pathname == "/done/" && !hash.trim().length) {
-        location.hash = "initial-setup-view";
+        location.hash = "initial-setup";
         return;
       }
 
