@@ -12,13 +12,12 @@ module.exports = {
     return {
       confirmReset: false,
       autoCheckUpgrade: true,
-      setup: false,
     };
   },
 
   methods: {
     set_config: async function () {
-      const data = { setup: this.setup };
+      const data = { setup:true };
       try {
         await api.put("set-initial-config", data);
         this.confirmReset = false;

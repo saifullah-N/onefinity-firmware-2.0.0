@@ -32,10 +32,10 @@ class InitialConfigurationHandler(bbctrl.APIHandler):
         if (value["setup"]):
             configFile = open("onefinity-firmware/src/resources/onefinity_defaults.json", "r")
             json_object = json.load(configFile)
+            self.get_log().info(json_object)
             json_object["initalConfig"] = True
             configFile = open("sample_file.json", "w")
             json.dump(json_object, configFile)
-            self.get_log().info(configFile)
             configFile.close()
                     # subprocess.Popen(['reboot'])
 
