@@ -1,6 +1,6 @@
 import { get, writable } from "svelte/store";
 import { processNetworkInfo } from "./NetworkInfo";
-
+import {GET} from'./api'
 export const networkInfo = writable({});
 
 export const probingActive = writable(false);
@@ -10,9 +10,10 @@ export const probingFailed = writable(false);
 export const probingComplete = writable(false);
 
 export function handleControllerStateUpdate(state: Record<string, any>) {
-    if (state.networkInfo) {
-        processNetworkInfo(state.networkInfo);
-        delete state.networkInfo;
+    if (state) {
+        let networkData  = GET("network")
+        networkData.then(value=>processNetworkInfo(value))
+              // delete state.networkInfo;
     }
 
     if (get(probingActive)) {

@@ -334,25 +334,24 @@ module.exports = new Vue({
       SvelteComponents.handleConfigUpdate(this.config);
     },
 
-    connect: async function () {
+    connect:  function () {
       this.sock = new Sock(`//${location.host}/sockjs`);
       
-      const data = await api.get("/network");
-      SvelteComponents.handleControllerStateUpdate(data);
+      // const data = api.get("/network");
       this.sock.onmessage = (e) => {
         if (typeof e.data != "object") {
           return;
         }
-
+        
         if (e.data.log && e.data.log.msg !== "Switch not found") {
           this.$broadcast("log", e.data.log);
-
+          
           if (Object.keys(e.data).length === 1) {
             // If there's only log data, we're done
             return;
           }
         }
-
+        
         // Check for session ID change on controller
         if ("sid" in e.data) {
           if (typeof this.sid == "undefined") {
@@ -361,12 +360,13 @@ module.exports = new Vue({
             if (this.hostname && location.hostname !== "localhost") {
               location.hostname = this.hostname;
             }
-
+            
             location.reload();
           }
         }
-
+        
         update_object(this.state, e.data, false);
+        SvelteComponents.handleControllerStateUpdate(this.state);
 
         delete this.state.log;
 

@@ -48,6 +48,8 @@
             network,
         };
     }
+
+    
 </script>
 
 <WifiConnectionDialog {...wifiConnectionDialog} />
