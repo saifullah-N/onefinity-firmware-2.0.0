@@ -334,9 +334,11 @@ module.exports = new Vue({
       SvelteComponents.handleConfigUpdate(this.config);
     },
 
-    connect: function () {
+    connect: async function () {
       this.sock = new Sock(`//${location.host}/sockjs`);
-
+      
+      const data = await api.get("/network");
+      SvelteComponents.handleControllerStateUpdate(data);
       this.sock.onmessage = (e) => {
         if (typeof e.data != "object") {
           return;
@@ -365,8 +367,6 @@ module.exports = new Vue({
         }
 
         update_object(this.state, e.data, false);
-
-        SvelteComponents.handleControllerStateUpdate(this.state);
 
         delete this.state.log;
 
