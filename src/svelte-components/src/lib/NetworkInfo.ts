@@ -34,7 +34,6 @@ const empty: NetworkInfo = {
 };
 
 export const networkInfo = writable<NetworkInfo>(empty);
-
 export function processNetworkInfo(rawNetworkInfo: NetworkInfo) {
     const now = Date.now();
     const networksByName: Record<string, WifiNetwork> = {};

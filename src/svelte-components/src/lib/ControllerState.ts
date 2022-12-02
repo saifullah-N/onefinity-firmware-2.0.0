@@ -10,11 +10,10 @@ export const probingFailed = writable(false);
 export const probingComplete = writable(false);
 
 export function handleControllerStateUpdate(state: Record<string, any>) {
-    if (state) {
-        let networkData  = GET("network")
-        networkData.then(value=>processNetworkInfo(value))
-              // delete state.networkInfo;
-    }
+    // if (state) {
+    
+    //           // delete state.networkInfo;
+    // }
 
     if (get(probingActive)) {
         if (state.pw === 0) {

@@ -5,7 +5,10 @@
     import List, { Item, Graphic, Text, Meta } from "@smui/list";
     import Card from "@smui/card";
     import { networkInfo, type WifiNetwork } from "$lib/NetworkInfo";
-
+    import {GET} from "$lib/api"
+    import {processNetworkInfo} from "$lib/NetworkInfo"
+        let networkData  = GET("network")
+        networkData.then(value=>processNetworkInfo(value))
     let changeHostnameDialog = {
         open: false,
     };
@@ -14,7 +17,10 @@
         open: false,
         network: {} as WifiNetwork,
     };
-
+    function refreshWifi(){
+             let networkData  = GET("network")
+        networkData.then(value=>processNetworkInfo(value))
+    }
     function getWifiStrengthStyle(network: WifiNetwork) {
         const strength = Math.ceil((Number(network.Quality) / 100) * 4);
 
@@ -48,14 +54,15 @@
             network,
         };
     }
-
-    
 </script>
 
 <WifiConnectionDialog {...wifiConnectionDialog} />
 <ChangeHostnameDialog {...changeHostnameDialog} />
 
 <div class="admin-network-view">
+    <Button on:click={refreshWifi} touch variant="raised">
+        <Label>Refresh WiFi</Label>
+    </Button>
     <h1>Network Info</h1>
 
     <div class="pure-form pure-form-aligned">
