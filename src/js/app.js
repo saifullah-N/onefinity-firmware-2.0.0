@@ -337,7 +337,6 @@ module.exports = new Vue({
     connect:  function () {
       this.sock = new Sock(`//${location.host}/sockjs`);
       
-      // const data = api.get("/network");
       this.sock.onmessage = (e) => {
         if (typeof e.data != "object") {
           return;

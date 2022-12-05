@@ -60,10 +60,11 @@
 <ChangeHostnameDialog {...changeHostnameDialog} />
 
 <div class="admin-network-view">
+    <div style="display:flex; flex-direction:row ; justify-content:space-around"></div>
+    <h1>Network Info</h1>
     <Button on:click={refreshWifi} touch variant="raised">
         <Label>Refresh WiFi</Label>
     </Button>
-    <h1>Network Info</h1>
 
     <div class="pure-form pure-form-aligned">
         <div class="pure-control-group">
