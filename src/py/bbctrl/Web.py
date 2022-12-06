@@ -135,10 +135,14 @@ class NetworkHandler(bbctrl.APIHandler):
 
     def get(self):
         try:
-            ipAddresses = call_get_output(['hostname', '-I']).split()
+            # ipAddresses = call_get_output(['hostname', '-I']).split()
+            ip = subprocess.check_output(
+                "ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True)
+            ipAddresses=ip.decode()
+            hostname = socket.gethostname()
         except:
             ipAddresses = ""
-
+            
         hostname = socket.gethostname()
 
         try:
