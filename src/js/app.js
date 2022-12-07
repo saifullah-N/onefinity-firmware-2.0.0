@@ -149,7 +149,7 @@ module.exports = new Vue({
       template: "#cheat-sheet-view-template",
       data: function () {
         return {
-          showUnimplemented: false,
+          showUnimplemented: true,
         };
       },
     },
