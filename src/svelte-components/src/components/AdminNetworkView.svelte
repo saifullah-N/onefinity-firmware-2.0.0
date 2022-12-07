@@ -60,11 +60,11 @@
 <ChangeHostnameDialog {...changeHostnameDialog} />
 
 <div class="admin-network-view" style="text-align:center;">
-    <div style="display:flex; flex-direction:row ; justify-content:space-around">
-    <h1>Network Info</h1>
-    <Button on:click={refreshWifi} touch variant="raised">
+    <div class="flexer">
+        <h1>Network Info</h1>
+        <Button on:click={refreshWifi} touch variant="raised">
         <Label>Refresh WiFi</Label>
-    </Button>
+        </Button>
     </div>
     <div class="pure-form pure-form-aligned">
         <div class="pure-control-group">
@@ -217,6 +217,12 @@
                         }
                     }
                 }
+            }
+
+            .flexer{
+                display:flex;
+                flex-direction:row; 
+                justify-content:space-around;
             }
         }
     }
