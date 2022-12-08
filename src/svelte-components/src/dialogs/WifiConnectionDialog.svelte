@@ -33,7 +33,7 @@
 
     async function onConfirm() {
         
-        rebooting = !document.location.pathname.includes("network")
+        rebooting = true
 
         await api.PUT("network", {
             wifi: {
@@ -46,7 +46,7 @@
 </script>
 
 <MessageDialog open={rebooting} title="Rebooting" noaction>
-    Rebooting to apply Wifi changes...
+    Waiting to apply Wifi configuruation...
 </MessageDialog>
 
 <Dialog
@@ -90,7 +90,7 @@
 
         <p>
             <em>
-                Clicking {connectOrDisconnect} will reboot the controller to apply
+                Clicking {connectOrDisconnect} will  apply
                 the changes.
             </em>
         </p>

@@ -112,6 +112,8 @@ module.exports = new Vue({
         motors: [{}, {}, {}, {}],
         version: "<loading>",
         full_version: "2.0.0",
+        ip:location.hostname,
+        wifi:"not connected"
       },
       state: {
         messages: [],
@@ -241,6 +243,7 @@ module.exports = new Vue({
   ready: function () {
     window.onhashchange = () => this.parse_hash();
     this.connect();
+    this.config.
 
     SvelteComponents.registerControllerMethods({
       dispatch: (...args) => this.$dispatch(...args),
