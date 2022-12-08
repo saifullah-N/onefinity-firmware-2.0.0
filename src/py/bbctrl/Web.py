@@ -131,6 +131,32 @@ class HostnameHandler(bbctrl.APIHandler):
         raise HTTPError(400, 'Failed to set hostname')
 
 
+class NetworkData(bbctrl.APIHandler):
+
+    def get(self):
+        # try:
+            # ipAddresses = call_get_output(['hostname', '-I']).split()
+            # ip = 
+        # except:
+            # ipAddresses = ""
+            
+        hostname = socket.gethostname()
+        try:
+            wifi = subprocess.check_output("sudo iw dev wlan0 info", shell=True)
+        except:
+            wifi = {'enabled': False}
+
+        # try:
+        #     lines = iw_parse.call_iwlist().decode("utf-8").split("\n")
+        #     wifi['networks'] = iw_parse.get_parsed_cells(lines)
+        # except:
+        #     wifi['networks'] = []
+
+        self.write_json({
+            # 'ipAddresses': ip,
+            'hostname': hostname,
+            'wifi': wifi
+        })
 class NetworkHandler(bbctrl.APIHandler):
 
     def get(self):
@@ -635,6 +661,7 @@ class Web(tornado.web.Application):
             (r'/api/reboot', RebootHandler),
             (r'/api/shutdown', ShutdownHandler),
             (r'/api/hostname', HostnameHandler),
+            (r'/api/wifi', NetworkData),
             (r'/api/network', NetworkHandler),
             (r'/api/config/load', ConfigLoadHandler),
             (r'/api/config/download', ConfigDownloadHandler),
