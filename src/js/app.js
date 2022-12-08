@@ -113,7 +113,7 @@ module.exports = new Vue({
         version: "<loading>",
         full_version: "2.0.0",
         ip:"<>",
-        wifi:"not connected"
+        wifiName:"not connected"
       },
       state: {
         messages: [],
@@ -324,7 +324,7 @@ module.exports = new Vue({
       update_object(this.config, config, true);
       this.config.full_version = fixup_version_number(this.config.full_version);
       this.config.ip = wifi.ipAddresses;
-      this.config.wifi=wifi.wifi;
+      this.config.wifiName=wifi.wifi;
       this.parse_hash();
 
       if (!this.checkedUpgrade) {
