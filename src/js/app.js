@@ -112,7 +112,7 @@ module.exports = new Vue({
         motors: [{}, {}, {}, {}],
         version: "<loading>",
         full_version: "2.0.0",
-        ip:location.hostname,
+        ip:"<>",
         wifi:"not connected"
       },
       state: {
@@ -243,7 +243,7 @@ module.exports = new Vue({
   ready: function () {
     window.onhashchange = () => this.parse_hash();
     this.connect();
-    this.config.
+    
 
     SvelteComponents.registerControllerMethods({
       dispatch: (...args) => this.$dispatch(...args),
@@ -320,9 +320,11 @@ module.exports = new Vue({
 
     update: async function () {
       const config = await api.get("config/load");
-
+      const wifi = await api.get("/wifi")
       update_object(this.config, config, true);
       this.config.full_version = fixup_version_number(this.config.full_version);
+      this.config.ip = wifi.ipAddresses;
+      this.config.wifi=wifi.wifi;
       this.parse_hash();
 
       if (!this.checkedUpgrade) {

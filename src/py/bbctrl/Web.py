@@ -134,28 +134,18 @@ class HostnameHandler(bbctrl.APIHandler):
 class NetworkData(bbctrl.APIHandler):
 
     def get(self):
-        # try:
-            # ipAddresses = call_get_output(['hostname', '-I']).split()
-            # ip = 
-        # except:
-            # ipAddresses = ""
-            
-        hostname = socket.gethostname()
         try:
-            wifi = subprocess.check_output("sudo iw dev wlan0 info", shell=True)
+            ipAddresses = subprocess.check_output("ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True).split()
         except:
-            wifi = {'enabled': False}
-
-        # try:
-        #     lines = iw_parse.call_iwlist().decode("utf-8").split("\n")
-        #     wifi['networks'] = iw_parse.get_parsed_cells(lines)
-        # except:
-        #     wifi['networks'] = []
-
+            ipAddresses = [""]            
+        try:
+            wifi = subprocess.check_output(
+                "sudo iw dev wlan0 info | grep ssid", shell=True).decode().split()
+        except:
+            wifi = ["",""]
         self.write_json({
-            # 'ipAddresses': ip,
-            'hostname': hostname,
-            'wifi': wifi
+            'ipAddresses': ipAddresses[0],
+            'wifi': wifi[1]
         })
 class NetworkHandler(bbctrl.APIHandler):
 
