@@ -59,7 +59,7 @@
 <WifiConnectionDialog {...wifiConnectionDialog} />
 <ChangeHostnameDialog {...changeHostnameDialog} />
 
-<div class="admin-network-view" style="text-align:center;">
+<div class="admin-network-view" style="text-align:left;">
     
     <div style="display:flex; flex-direction:row; justify-content:space-around" >
             <h1>Network Info</h1>
