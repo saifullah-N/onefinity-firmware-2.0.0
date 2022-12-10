@@ -57,7 +57,7 @@
 </script>
 
 <WifiConnectionDialog {...wifiConnectionDialog} />
-<ChangeHostnameDialog {...changeHostnameDialog} />
+<!-- <ChangeHostnameDialog {...changeHostnameDialog} /> -->
 
 <div class="admin-network-view" style="text-align:left;">
     

@@ -45,8 +45,8 @@
     }
 </script>
 
-<MessageDialog open={rebooting} title="Rebooting" noaction>
-    Waiting to apply Wifi configuruation...
+<MessageDialog open={rebooting} title="Msg" >
+        wifi will connect after reboot...
 </MessageDialog>
 
 <Dialog
