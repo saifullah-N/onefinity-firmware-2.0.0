@@ -36,10 +36,10 @@ html(lang="en")
                 |  ip:{{config.ip}}
                 div 
                 | wifi:{{config.wifiName}}
-              a.upgrade-link(v-if="show_upgrade()", href="#admin-general")
+            a.upgrade-link(v-if="show_upgrade()", href="#admin-general")
                 | Upgrade to v{{latestVersion}}
-              .fa.fa-exclamation-circle.upgrade-attention(v-if="show_upgrade()")
-              
+                .fa.fa-exclamation-circle.upgrade-attention(v-if="show_upgrade()")
+
         div(style="text-align:center")
           .content(class="{{currentView}}-view")
             component(:is="currentView + '-view'", :index="index",
