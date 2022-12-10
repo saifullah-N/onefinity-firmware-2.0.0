@@ -61,7 +61,7 @@
 
 <div class="admin-network-view" style="text-align:left;">
     
-    <div style="display:flex; flex-direction:row; justify-content:space-around" >
+    <div style="display:flex; flex-direction:row; justify-content:space-between" >
             <h1>Network Info</h1>
              <div style="text-align: center; padding:20px">
             <Button on:click={refreshWifi} touch variant="raised">
