@@ -68,7 +68,7 @@
                 <Label>Refresh WiFi</Label>
             </Button>
             </div>
-        </div>
+    </div>
     <!-- <div class="pure-form pure-form-aligned">
         <div class="pure-control-group">
             <label for="hostname">Hostname</label>
@@ -83,7 +83,7 @@
             </Button>
         </span>
         </div> -->
-    </div>
+    <!-- </div> -->
 
     <div class="pure-form pure-form-aligned">
         <div class="pure-control-group">
