@@ -154,9 +154,9 @@ class NetworkHandler(bbctrl.APIHandler):
     def get(self):
         try:
             # ipAddresses = call_get_output(['hostname', '-I']).decode().split()
-            ip = subprocess.check_output(
-                "ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True)
-            ipAddresses = ip.decode().split()
+            ipAddresses = subprocess.check_output(
+                "ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True).decode().split()
+            ipAddresses.remove("127.0.0.1")
         except:
             ipAddresses = ""
 
