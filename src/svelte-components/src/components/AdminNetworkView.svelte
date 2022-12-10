@@ -60,9 +60,6 @@
 <ChangeHostnameDialog {...changeHostnameDialog} />
 
 <div class="admin-network-view" style="text-align:center;">
-    <div>
-        <div>hello</div>
-    </div>
     
     <div style="display:flex; flex-direction:row; justify-content:space-around" >
             <h1>Network Info</h1>
