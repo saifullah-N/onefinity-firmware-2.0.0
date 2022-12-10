@@ -174,7 +174,7 @@ class NetworkHandler(bbctrl.APIHandler):
             wifi['networks'] = []
 
         self.write_json({
-            'ipAddresses': ipAddresses,
+            'ipAddresses': ipAddresses[0],
             'hostname': hostname,
             'wifi': wifi
         })
