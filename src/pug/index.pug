@@ -73,8 +73,12 @@ html(lang="en")
           .brand
             img(src="/images/onefinity_logo.png")
             .version
-              | v{{config.full_version}}  ip:{{config.ip}}
-              | wifi:{{config.wifiName}}
+                div 
+                |  v{{config.full_version}} 
+                div
+                |  ip:{{config.ip}}
+                div 
+                | wifi:{{config.wifiName}}
               a.upgrade-link(v-if="show_upgrade()", href="#admin-general")
                 | Upgrade to v{{latestVersion}}
               .fa.fa-exclamation-circle.upgrade-attention(v-if="show_upgrade()")

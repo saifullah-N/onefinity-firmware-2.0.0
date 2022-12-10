@@ -63,7 +63,7 @@
     
     <div style="display:flex; flex-direction:row; justify-content:space-around" >
             <h1>Network Info</h1>
-             <div>
+             <div style="text-align: center; padding:20px">
             <Button on:click={refreshWifi} touch variant="raised">
                 <Label>Refresh WiFi</Label>
             </Button>
