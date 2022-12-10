@@ -136,6 +136,7 @@ class NetworkData(bbctrl.APIHandler):
     def get(self):
         try:
             ipAddresses = subprocess.check_output("ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True).decode().split()
+            ipAddresses.remove("127.0.0.1")
         except:
             ipAddresses = ["0.0.0.0"]            
         try:
@@ -148,17 +149,16 @@ class NetworkData(bbctrl.APIHandler):
             'wifi': wifi[1]
         })
 class NetworkHandler(bbctrl.APIHandler):
-
     def get(self):
         try:
             # ipAddresses = call_get_output(['hostname', '-I']).split()
             ip = subprocess.check_output(
                 "ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True)
-            ipAddresses=ip.decode()
+            ipAddresses = ip.decode()
             hostname = socket.gethostname()
         except:
             ipAddresses = ""
-            
+
         hostname = socket.gethostname()
 
         try:
@@ -177,7 +177,6 @@ class NetworkHandler(bbctrl.APIHandler):
             'hostname': hostname,
             'wifi': wifi
         })
-
     def put(self):
         if self.get_ctrl().args.demo:
             raise HTTPError(400, 'Cannot configure WiFi in demo mode')
