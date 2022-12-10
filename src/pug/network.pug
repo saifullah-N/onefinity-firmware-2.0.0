@@ -7,6 +7,8 @@ html(lang="en")
     title Onefinity CNC - Web interface
 
     style: include ../static/css/pure-min.css
+    style: include ../static/css/side-menu.css
+
     style: include ../static/css/font-awesome.min.css
     style: include ../static/css/Audiowide.css
     style: include ../static/css/clusterize.css
@@ -15,7 +17,7 @@ html(lang="en")
     style: include ../../build/http/svelte-components/style.css
     style: include:stylus ../stylus/style.styl
 
-  body(v-cloak style="height:100vh; width:100vw; background-image: url('./images/getstartedBG.jpeg');background-size: cover;color:#777")
+  body(v-cloak  ,style="height:100vh; width:100vw; background-image: url('./images/getstartedBG.jpeg');background-size: cover;")
     #svelte-dialog-host
 
     #overlay(v-if="status != 'connected'")
@@ -24,7 +26,6 @@ html(lang="en")
     #layout
       a#menuLink.menu-link(href="#menu"): span
 
- 
       #main
         .nav-header
           .brand
@@ -40,14 +41,21 @@ html(lang="en")
                 | Upgrade to v{{latestVersion}}
                 .fa.fa-exclamation-circle.upgrade-attention(v-if="show_upgrade()")
 
-        div(style="text-align:center")
-          .content(class="{{currentView}}-view")
-            component(:is="currentView + '-view'", :index="index",
-              :config="config", :template="template", :state="state", keep-alive)  
+          .pi-temp-warning
+            .fa.fa-thermometer-full(class="error",
+              v-if="80 <= state.rpi_temp",
+              title="Raspberry Pi temperature too high.")
+
+          .whitespace
+
+
+        .content(class="{{currentView}}-view")
+          component(:is="currentView + '-view'", :index="index",
+            :config="config", :template="template", :state="state", keep-alive)
+
           div(style='display:flex; justify-content: space-around;')
             a(href='/defaultConfig/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:15px 40px ; border-radius:8%;text-decoration: none;') previous 
             a(href='/buttonType/', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;') next
-
     message.error-message(:show.sync="errorShow")
       div(slot="header")
         .estop(:class="{active: state.es}"): estop(@click="estop")
@@ -121,7 +129,8 @@ html(lang="en")
     script: include ../static/js/vue.js
     script: include ../static/js/sockjs.min.js
     script: include ../static/js/clusterize.min.js
-    script: include ../static/js/three.min.js
     script: include:browserify ../js/main.js
     script: include ../../build/http/svelte-components/index.js
+    script: include ../static/js/ui.js
+
 
