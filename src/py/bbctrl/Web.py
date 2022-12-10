@@ -137,12 +137,12 @@ class NetworkData(bbctrl.APIHandler):
         try:
             ipAddresses = subprocess.check_output("ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True).decode().split()
         except:
-            ipAddresses = [""]            
+            ipAddresses = ["0.0.0.0"]            
         try:
             wifi = subprocess.check_output(
                 "sudo iw dev wlan0 info | grep ssid", shell=True).decode().split()
         except:
-            wifi = ["",""]
+            wifi = ["","not connected"]
         self.write_json({
             'ipAddresses': ipAddresses[0],
             'wifi': wifi[1]
