@@ -84,9 +84,9 @@ module.exports = {
         this.$dispatch("update");
         SvelteComponents.showDialog("Message", {
           title: "Success",
-          message: "Configuration restored",
+          message: "Configuration Set",
         });
-        location.replace("/network/");
+        location.hash="button-controller";
       } catch (error) {
         console.error("Restore failed:", error);
         alert("Restore failed");
@@ -118,7 +118,7 @@ module.exports = {
       this.$dispatch("config-changed");
     },
     previous: function () {
-      location.replace("/");
+      location.hash = "get-started";
     },
   },
 };

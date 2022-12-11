@@ -101,6 +101,7 @@ module.exports = new Vue({
 
   data: function () {
     return {
+      initalConfig:false,
       status: "connecting",
       currentView: "loading",
       display_units: localStorage.getItem("display_units") || "METRIC",
@@ -147,6 +148,8 @@ module.exports = new Vue({
     "default-config-view": require("./default-config"),
     "button-controller-view": require("./button-controller"),
     "initial-setup-view": require("./initial-setup"),
+    "network-view":require("./network"),
+    "get-started-view":require("./get-started"),
     "cheat-sheet-view": {
       template: "#cheat-sheet-view-template",
       data: function () {
@@ -320,8 +323,10 @@ module.exports = new Vue({
 
     update: async function () {
       const config = await api.get("config/load");
+      const initalConfig = await api.get("check-initial-config'");
       const wifi = await api.get("wifi")
       update_object(this.config, config, true);
+      this.initalConfig=initalConfig
       this.config.full_version = fixup_version_number(this.config.full_version);
       this.config.ip = wifi.ipAddresses;
       this.config.wifiName=wifi.wifi;
@@ -394,31 +399,33 @@ module.exports = new Vue({
       const hash = location.hash.substr(1);
 
       if (location.pathname == "/" && !hash.trim().length) {
-        location.hash = "control";
+        if(this.initalConfig)
+          location.hash = "control";
+        else location.hash ="get-started"
         return;
       }
-      if (location.pathname == "/home/" && !hash.trim().length) {
-        location.hash = "control";
-        return;
-      }
+      // if (location.pathname == "/home/" && !hash.trim().length) {
+      //   location.hash = "control";
+      //   return;
+      // }
 
-      if (location.pathname == "/network/" && !hash.trim().length) {
-        location.hash = "admin-network";
-        return;
-      }
+      // if (location.pathname == "/network/" && !hash.trim().length) {
+      //   location.hash = "admin-network";
+      //   return;
+      // }
 
-      if (location.pathname == "/defaultConfig/" && !hash.trim().length) {
-        location.hash = "default-config";
-        return;
-      }
-      if (location.pathname == "/buttonType/" && !hash.trim().length) {
-        location.hash = "button-controller";
-        return;
-      }
-      if (location.pathname == "/done/" && !hash.trim().length) {
-        location.hash = "initial-setup";
-        return;
-      }
+      // if (location.pathname == "/defaultConfig/" && !hash.trim().length) {
+      //   location.hash = "default-config";
+      //   return;
+      // }
+      // if (location.pathname == "/buttonType/" && !hash.trim().length) {
+      //   location.hash = "button-controller";
+      //   return;
+      // }
+      // if (location.pathname == "/done/" && !hash.trim().length) {
+      //   location.hash = "initial-setup";
+      //   return;
+      // }
 
       const parts = hash.split(":");
 

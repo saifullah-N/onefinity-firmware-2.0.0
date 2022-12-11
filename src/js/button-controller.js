@@ -33,7 +33,7 @@ module.exports = {
           title: "Success",
           message: "button type set",
         });
-        location.replace('/done/')
+        location.hash="network"
       } catch (error) {
         console.error("button settings failed:", error);
         alert("OOPS! an error has occured");
@@ -41,7 +41,7 @@ module.exports = {
     },
 
     previous:function() {
-     location.replace("/network/"); 
+     location.hash = "default-config"; 
     }
   },
 };

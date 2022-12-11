@@ -40,6 +40,19 @@ class InitialConfigurationHandler(bbctrl.APIHandler):
             subprocess.Popen(['reboot'])
 
 
+class CheckConfigurationHandler:
+    def get(self):
+        try:
+            with open("/var/lib/bbctrl/config.json", "r+") as jsonFile:
+                data = json.load(jsonFile)
+                initalConfig=data["initalConfig"]
+        except:
+            initalConfig = False
+
+            self.write_json({
+                'initalConfig': initalConfig
+            })
+
 class ButtonTypeHandler(bbctrl.APIHandler):
     def put_ok(self):
         # self.get_ctrl().config.save(self.json)
@@ -617,13 +630,13 @@ class StaticFileHandler(tornado.web.StaticFileHandler):
 class Web(tornado.web.Application):
 
     def __init__(self, args, ioloop):
-        configFile = open("/var/lib/bbctrl/config.json", "r")
-        json_object = json.load(configFile)
-        page = ""
-        if(json_object["initalConfig"]): 
-            page="index.html"
-        else:
-            page = "getStarted.html"
+        # configFile = open("/var/lib/bbctrl/config.json", "r")
+        # json_object = json.load(configFile)
+        # page = ""
+        # if(json_object["initalConfig"]): 
+        #     page="index.html"
+        # else:
+        #     page = "getStarted.html"
         
         self.args = args
         self.ioloop = ioloop
@@ -682,31 +695,33 @@ class Web(tornado.web.Application):
             (r'/api/remote-diagnostics', RemoteDiagnosticsHandler),
             (r'/api/set-button-type', ButtonTypeHandler),
             (r'/api/set-initial-config', InitialConfigurationHandler),
+            (r'/api/check-initial-config', CheckConfigurationHandler),
             (r'/home/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'index.html'
             }),
-            (r'/network/(.*)', StaticFileHandler, {
-                'path': bbctrl.get_resource('http/'),
-                'default_filename': 'network.html'
-            }),
-            (r'/defaultConfig/(.*)', StaticFileHandler, {
-                'path': bbctrl.get_resource('http/'),
-                'default_filename': 'defaultConfig.html'
-            }),
-            (r'/done/(.*)', StaticFileHandler, {
-                'path': bbctrl.get_resource('http/'),
-                'default_filename': 'done.html'
-            }),
-            (r'/buttonType/(.*)', StaticFileHandler, {
-                'path': bbctrl.get_resource('http/'),
-                'default_filename': 'buttonType.html'
-            }),
             (r'/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
-                'default_filename': page
+                'default_filename': index.html
             }),
         ]
+
+        # (r'/network/(.*)', StaticFileHandler, {
+        #     'path': bbctrl.get_resource('http/'),
+        #     'default_filename': 'network.html'
+        # }),
+        # (r'/defaultConfig/(.*)', StaticFileHandler, {
+        #     'path': bbctrl.get_resource('http/'),
+        #     'default_filename': 'defaultConfig.html'
+        # }),
+        # (r'/done/(.*)', StaticFileHandler, {
+        #     'path': bbctrl.get_resource('http/'),
+        #     'default_filename': 'done.html'
+        # }),
+        # (r'/buttonType/(.*)', StaticFileHandler, {
+        # 'path': bbctrl.get_resource('http/'),
+        # 'default_filename': 'buttonType.html'
+        # }),
 
         router = sockjs.tornado.SockJSRouter(SockJSConnection, '/sockjs')
         router.app = self

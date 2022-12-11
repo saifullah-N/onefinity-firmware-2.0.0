@@ -26,7 +26,7 @@ module.exports = {
           title: "Success",
           message: "config-set",
         });
-       location.replace("/");
+       location.hash="#control";
       } catch (error) {
         console.error(
           "there was a problem in settinng up initial configuration:",

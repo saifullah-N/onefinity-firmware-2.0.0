@@ -17,14 +17,15 @@ html(lang="en")
     style: include ../../build/http/svelte-components/style.css
     style: include:stylus ../stylus/style.styl
 
-  body(v-cloak)
+  body(v-cloak,style="height:100vh; width:100vw; background-image: url('./images/getstartedBG.jpeg');background-size: cover;")
     #svelte-dialog-host
 
     #overlay(v-if="status != 'connected'")
       span {{status}}
     
     #layout
-      a#menuLink.menu-link(href="#menu"): span
+      div(v-if="initalConfig")
+        a#menuLink.menu-link(href="#menu"): span
 
       #menu
         button.save.pure-button.button-success(:disabled="!modified",
