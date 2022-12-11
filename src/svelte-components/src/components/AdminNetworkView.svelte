@@ -151,7 +151,7 @@
         </div>
     </div>
     {#if hash}
-    <div style="display:flex; justify-content: space-around;">
+    <div style="display:flex; justify-content: space-around; margin-top:2%">
         <a href="#button-controller" style=" color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:15px 40px ; border-radius:8%;text-decoration: none;">previous </a>
         <a href="#initial-setup" style=" color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;">next</a>
     </div>
