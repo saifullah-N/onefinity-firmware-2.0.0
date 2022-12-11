@@ -149,7 +149,6 @@ module.exports = new Vue({
     "button-controller-view": require("./button-controller"),
     "initial-setup-view": require("./initial-setup"),
     "network-view": require("./network"),
-    "path-viewer": require("./path-viewer"),
     "get-started-view": {
       template: "#get-started-template",
     },

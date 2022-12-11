@@ -51,6 +51,7 @@ window.onload = function() {
     Vue.component("io-indicator", require("./io-indicator"));
     Vue.component("console", require("./console"));
     Vue.component("unit-value", require("./unit-value"));
+    Vue.component("path-viewer",require("./path-viewer"))
 
 
     Vue.filter("number", function(value) {
