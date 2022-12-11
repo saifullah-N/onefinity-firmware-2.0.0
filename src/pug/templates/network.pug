@@ -1,6 +1,7 @@
 script#network-view-template(type="text/x-template")
-  #admin-network
-          div(style='display:flex; justify-content: space-around;')
+  #admin-network(style="height:50vh")
+
+          div(style='display:flex; justify-content: space-around;' v-if="renderd")
             a(href='#button-controller', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:15px 40px ; border-radius:8%;text-decoration: none;') previous 
             a(href='#initial-setup', style=' color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;') next
   
