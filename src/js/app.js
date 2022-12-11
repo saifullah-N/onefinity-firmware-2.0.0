@@ -325,7 +325,7 @@ module.exports = new Vue({
 
     update: async function () {
       const config = await api.get("config/load");
-      const initalConfig = await api.get("check-initial-config'");
+      const initalConfig = await api.get("check-initial-config");
       const wifi = await api.get("wifi")
       update_object(this.config, config, true);
       this.initalConfig=initalConfig
