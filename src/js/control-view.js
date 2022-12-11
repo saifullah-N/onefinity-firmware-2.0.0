@@ -47,7 +47,7 @@ module.exports = {
 
   components: {
     "axis-control": require("./axis-control"),
-    // "path-viewer": require("./path-viewer"),
+    "path-viewer": require("./path-viewer"),
     // "gcode-viewer": require("./gcode-viewer"),
   },
 
