@@ -1,13 +1,17 @@
 module.exports = {
   template: "#network-view-template",
-  props: ["render"],
+  data:function () {
+    return {
+      renderd: false,
+    };
+  },
 
   attached: function () {
     this.svelteComponent = SvelteComponents.createComponent(
       "AdminNetworkView",
       document.getElementById("admin-network")
       );
-      this.render=true
+      this.renderd = true;
   },
 
   detached: function () {

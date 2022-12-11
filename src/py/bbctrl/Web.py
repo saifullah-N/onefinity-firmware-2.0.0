@@ -51,6 +51,7 @@ class CheckConfigurationHandler:
 
             self.write_json({
                 'initalConfig': initalConfig
+                "hi":"hello"
             })
 
 class ButtonTypeHandler(bbctrl.APIHandler):
