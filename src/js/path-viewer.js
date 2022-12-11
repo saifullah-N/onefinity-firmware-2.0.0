@@ -147,7 +147,7 @@ module.exports = {
 
         update_surface_mode: function(mode) {
             if (!this.enabled) {
-                return;
+                return null;
             }
 
             if (typeof this.surfaceMaterial != "undefined") {
@@ -163,7 +163,7 @@ module.exports = {
             if (typeof surface == "undefined") {
                 this.vertices = undefined;
                 this.normals = undefined;
-                return;
+                return null;
             }
 
             this.vertices = surface.vertices;
@@ -197,7 +197,7 @@ module.exports = {
 
         update_view: function() {
             if (!this.enabled) {
-                return;
+                return null;
             }
 
             const dims = this.get_dims();
@@ -217,7 +217,7 @@ module.exports = {
 
         update_tool: function(tool) {
             if (!this.enabled) {
-                return;
+                return null;
             }
 
             if (typeof tool == "undefined") {
@@ -225,7 +225,7 @@ module.exports = {
             }
 
             if (typeof tool == "undefined") {
-                return;
+                return null;
             }
 
             tool.position.x = this.x.pos;
@@ -235,7 +235,7 @@ module.exports = {
 
         update_envelope: function(envelope) {
             if (!this.enabled || !this.axes.homed) {
-                return;
+                return null;
             }
 
             if (typeof envelope == "undefined") {
@@ -243,7 +243,7 @@ module.exports = {
             }
 
             if (typeof envelope == "undefined") {
-                return;
+                return null;
             }
 
             const min = new THREE.Vector3();
@@ -282,7 +282,7 @@ module.exports = {
 
             } catch (e) {
                 console.log("WebGL not supported: ", e);
-                return;
+                return null;
             }
 
             this.enabled = true;
@@ -371,7 +371,7 @@ module.exports = {
 
         draw_workpiece: function(scene, material) {
             if (typeof this.workpiece == "undefined") {
-                return;
+                return null;
             }
 
             let min = this.workpiece.min;
@@ -399,7 +399,7 @@ module.exports = {
 
         draw_surface: function(scene, material) {
             if (typeof this.vertices == "undefined") {
-                return;
+                return null;
             }
 
             const geometry = new THREE.BufferGeometry();
@@ -643,7 +643,7 @@ module.exports = {
             window.requestAnimationFrame(this.render);
 
             if (typeof this.scene == "undefined") {
-                return;
+                return null;
             }
 
             if (this.controls.update() || this.dirty) {
@@ -673,7 +673,7 @@ module.exports = {
 
         snap: function(view) {
             if (this.loading) {
-                return;
+                return null;
             }
 
             if (view != this.snapView) {
