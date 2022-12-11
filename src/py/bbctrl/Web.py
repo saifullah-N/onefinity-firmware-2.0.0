@@ -44,12 +44,12 @@ class CheckConfigurationHandler:
         try:
             with open("/var/lib/bbctrl/config.json", "r+") as jsonFile:
                 data = json.load(jsonFile)
-                initalConfig=data["initalConfig"]
+                Config=data["initalConfig"]
         except:
-            initalConfig = False
+                Config = False
 
-            self.write_json({
-                'initalConfig': initalConfig,
+        self.write_json({
+                'initalConfig': Config,
                 "hi": "hello"
             })
 
@@ -694,8 +694,8 @@ class Web(tornado.web.Application):
             (r'/api/time', TimeHandler),
             (r'/api/remote-diagnostics', RemoteDiagnosticsHandler),
             (r'/api/set-button-type', ButtonTypeHandler),
-            (r'/api/set-initial-config', InitialConfigurationHandler),
             (r'/api/check-initial-config', CheckConfigurationHandler),
+            (r'/api/set-initial-config', InitialConfigurationHandler),
             (r'/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': "index.html"
