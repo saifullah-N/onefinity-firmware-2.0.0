@@ -21,7 +21,6 @@ def call_get_output(cmd):
 
 
 class RebootHandler(bbctrl.APIHandler):
-
     def put_ok(self):
         subprocess.Popen(['reboot'])
         
@@ -50,8 +49,8 @@ class CheckConfigurationHandler:
             initalConfig = False
 
             self.write_json({
-                'initalConfig': initalConfig
-                "hi":"hello"
+                'initalConfig': initalConfig,
+                "hi": "hello"
             })
 
 class ButtonTypeHandler(bbctrl.APIHandler):
