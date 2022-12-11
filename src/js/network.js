@@ -6,8 +6,8 @@ module.exports = {
     };
   },
 
-  attached: function () {
-    this.svelteComponent = SvelteComponents.createComponent(
+  attached: async function () {
+    this.svelteComponent = await SvelteComponents.createComponent(
       "AdminNetworkView",
       document.getElementById("admin-network")
       );
