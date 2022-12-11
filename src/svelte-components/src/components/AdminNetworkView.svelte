@@ -12,7 +12,7 @@
     let changeHostnameDialog = {
         open: false,
     };
-
+    let hash = location.hash.includes("network")
     let wifiConnectionDialog = {
         open: false,
         network: {} as WifiNetwork,
@@ -150,6 +150,12 @@
             </div>
         </div>
     </div>
+    {#if hash}
+    <div style="display:flex; justify-content: space-around;">
+        <a href="#button-controller" style=" color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ;  padding:15px 40px ; border-radius:8%;text-decoration: none;">previous </a>
+        <a href="#initial-setup" style=" color:white ; background-color:#6F8DF5 ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;">next</a>
+    </div>
+    {/if}
 </div>
 
 <style lang="scss">

@@ -24,8 +24,7 @@ html(lang="en")
       span {{status}}
     
     #layout
-      div(v-if="initalConfig")
-        a#menuLink.menu-link(href="#menu"): span
+      a#menuLink.menu-link(href="#menu":style="!initalConfig?'display':'display:block'"): span
 
       #menu
         button.save.pure-button.button-success(:disabled="!modified",
