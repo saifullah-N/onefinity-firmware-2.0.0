@@ -39,7 +39,7 @@ class InitialConfigurationHandler(bbctrl.APIHandler):
             subprocess.Popen(['reboot'])
 
 
-class CheckConfigurationHandler:
+class CheckConfigurationHandler(bbctrl.APIHandler):
     def get(self):
         try:
             with open("/var/lib/bbctrl/config.json", "r+") as jsonFile:
