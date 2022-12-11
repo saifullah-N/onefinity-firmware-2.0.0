@@ -12,7 +12,7 @@
     let changeHostnameDialog = {
         open: false,
     };
-    let hash = location.hash=="network"
+    let hash = location.hash=="#network"
     let wifiConnectionDialog = {
         open: false,
         network: {} as WifiNetwork,
