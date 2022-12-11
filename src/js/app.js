@@ -137,9 +137,9 @@ module.exports = new Vue({
   components: {
     estop: { template: "#estop-template" },
     "loading-view": { template: "<h1>Loading...</h1>" },
-    "control-view": require("./control-view"),
     "settings-view": require("./settings-view"),
     "motor-view": require("./motor-view"),
+    "control-view": require("./control-view"),
     "tool-view": require("./tool-view"),
     "io-view": require("./io-view"),
     "admin-general-view": require("./admin-general-view"),
