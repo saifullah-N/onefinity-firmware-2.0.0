@@ -101,7 +101,7 @@ module.exports = new Vue({
 
   data: function () {
     return {
-      initalConfig:false,
+      initalConfig: false,
       status: "connecting",
       currentView: "loading",
       display_units: localStorage.getItem("display_units") || "METRIC",
@@ -113,8 +113,8 @@ module.exports = new Vue({
         motors: [{}, {}, {}, {}],
         version: "<loading>",
         full_version: "2.0.0",
-        ip:"<>",
-        wifiName:"not connected"
+        ip: "<>",
+        wifiName: "not connected",
       },
       state: {
         messages: [],
@@ -148,9 +148,10 @@ module.exports = new Vue({
     "default-config-view": require("./default-config"),
     "button-controller-view": require("./button-controller"),
     "initial-setup-view": require("./initial-setup"),
-    "network-view":require("./network"),
-    "get-started-view":{
-          template: "#get-started-template"
+    "network-view": require("./network"),
+    "path-viewer": require("./path-viewer"),
+    "get-started-view": {
+      template: "#get-started-template",
     },
     "cheat-sheet-view": {
       template: "#cheat-sheet-view-template",
@@ -248,7 +249,6 @@ module.exports = new Vue({
   ready: function () {
     window.onhashchange = () => this.parse_hash();
     this.connect();
-    
 
     SvelteComponents.registerControllerMethods({
       dispatch: (...args) => this.$dispatch(...args),
@@ -326,12 +326,12 @@ module.exports = new Vue({
     update: async function () {
       const config = await api.get("config/load");
       const initalConfig = await api.get("check-initial-config");
-      const wifi = await api.get("wifi")
+      const wifi = await api.get("wifi");
       update_object(this.config, config, true);
-      this.initalConfig=initalConfig
+      this.initalConfig = initalConfig;
       this.config.full_version = fixup_version_number(this.config.full_version);
       this.config.ip = wifi.ipAddresses;
-      this.config.wifiName=wifi.wifi;
+      this.config.wifiName = wifi.wifi;
       this.parse_hash();
 
       if (!this.checkedUpgrade) {
@@ -346,23 +346,23 @@ module.exports = new Vue({
       SvelteComponents.handleConfigUpdate(this.config);
     },
 
-    connect:  function () {
+    connect: function () {
       this.sock = new Sock(`//${location.host}/sockjs`);
-      
+
       this.sock.onmessage = (e) => {
         if (typeof e.data != "object") {
           return;
         }
-        
+
         if (e.data.log && e.data.log.msg !== "Switch not found") {
           this.$broadcast("log", e.data.log);
-          
+
           if (Object.keys(e.data).length === 1) {
             // If there's only log data, we're done
             return;
           }
         }
-        
+
         // Check for session ID change on controller
         if ("sid" in e.data) {
           if (typeof this.sid == "undefined") {
@@ -371,11 +371,11 @@ module.exports = new Vue({
             if (this.hostname && location.hostname !== "localhost") {
               location.hostname = this.hostname;
             }
-            
+
             location.reload();
           }
         }
-        
+
         update_object(this.state, e.data, false);
         SvelteComponents.handleControllerStateUpdate(this.state);
 
@@ -401,12 +401,11 @@ module.exports = new Vue({
       const hash = location.hash.substr(1);
 
       if (location.pathname == "/" && !hash.trim().length) {
-        if(this.initalConfig)
-          location.hash = "control";
-        else location.hash ="get-started"
+        if (this.initalConfig) location.hash = "control";
+        else location.hash = "get-started";
         return;
       }
-     
+
       const parts = hash.split(":");
 
       if (parts.length == 2) {
