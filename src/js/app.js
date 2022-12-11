@@ -149,7 +149,9 @@ module.exports = new Vue({
     "button-controller-view": require("./button-controller"),
     "initial-setup-view": require("./initial-setup"),
     "network-view":require("./network"),
-    "get-started-view":require("./get-started"),
+    "get-started-view":{
+          template: "#get-started-template"
+    },
     "cheat-sheet-view": {
       template: "#cheat-sheet-view-template",
       data: function () {
@@ -404,29 +406,7 @@ module.exports = new Vue({
         else location.hash ="get-started"
         return;
       }
-      // if (location.pathname == "/home/" && !hash.trim().length) {
-      //   location.hash = "control";
-      //   return;
-      // }
-
-      // if (location.pathname == "/network/" && !hash.trim().length) {
-      //   location.hash = "admin-network";
-      //   return;
-      // }
-
-      // if (location.pathname == "/defaultConfig/" && !hash.trim().length) {
-      //   location.hash = "default-config";
-      //   return;
-      // }
-      // if (location.pathname == "/buttonType/" && !hash.trim().length) {
-      //   location.hash = "button-controller";
-      //   return;
-      // }
-      // if (location.pathname == "/done/" && !hash.trim().length) {
-      //   location.hash = "initial-setup";
-      //   return;
-      // }
-
+     
       const parts = hash.split(":");
 
       if (parts.length == 2) {

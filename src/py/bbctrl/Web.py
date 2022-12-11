@@ -696,15 +696,15 @@ class Web(tornado.web.Application):
             (r'/api/set-button-type', ButtonTypeHandler),
             (r'/api/set-initial-config', InitialConfigurationHandler),
             (r'/api/check-initial-config', CheckConfigurationHandler),
+            (r'/(.*)', StaticFileHandler, {
+                'path': bbctrl.get_resource('http/'),
+                'default_filename': "index.html"
+            }),
             (r'/home/(.*)', StaticFileHandler, {
                 'path': bbctrl.get_resource('http/'),
                 'default_filename': 'index.html'
             }),
-            (r'/(.*)', StaticFileHandler, {
-                'path': bbctrl.get_resource('http/'),
-                'default_filename': index.html
-            }),
-        ]
+]
 
         # (r'/network/(.*)', StaticFileHandler, {
         #     'path': bbctrl.get_resource('http/'),
