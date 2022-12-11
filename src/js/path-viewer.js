@@ -104,7 +104,7 @@ module.exports = {
     methods: {
         update: async function() {
             if (!this.webglAvailable) {
-                return;
+                return null;
             }
 
             if (!this.state.selected) {
@@ -118,7 +118,7 @@ module.exports = {
             }
 
             if (!this.enabled || !this.toolpath.filename) {
-                return;
+                return null;
             }
 
             async function get(url) {
@@ -270,7 +270,7 @@ module.exports = {
 
         graphics: function() {
             if (!this.webglAvailable) {
-                return;
+                return null;
             }
 
             try {
