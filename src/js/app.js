@@ -400,9 +400,10 @@ module.exports = new Vue({
       const hash = location.hash.substr(1);
 
       if (location.pathname == "/" && !hash.trim().length) {
-        if (this.initalConfig) location.hash = "control";
-        else location.hash = "get-started";
-        return;
+        if (!this.initalConfig)
+          location.hash = "get-started" 
+        else
+          location.hash = "control";
       }
 
       const parts = hash.split(":");
