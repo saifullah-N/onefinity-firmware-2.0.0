@@ -128,13 +128,12 @@ module.exports = {
         return new Float32Array(arrayBuffer);
       }
 
-      // const [positions, speeds] = await Promise.all([
-      //   get(`/api/path/${this.toolpath.filename}/positions`),
-      //   get(`/api/path/${this.toolpath.filename}/speeds`),
-      // ]);
-      const positions =await get(`/api/path/${this.toolpath.filename}/positions`)
-      const speeds = await get(`/api/path/${this.toolpath.filename}/speeds`);
-      this.positions = positions ;
+      const [positions, speeds] = await Promise.all([
+        get(`/api/path/${this.toolpath.filename}/positions`),
+        get(`/api/path/${this.toolpath.filename}/speeds`),
+      ]);
+
+      this.positions = positions;
       this.speeds = speeds;
       this.loading = false;
 

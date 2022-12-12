@@ -291,7 +291,7 @@ module.exports = {
       this.toolpath = {};
 
       if (!file || this.last_file_time != file_time) {
-        return;
+        return null;
       }
 
       this.showGcodeMessage = true;
