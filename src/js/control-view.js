@@ -275,7 +275,7 @@ module.exports = {
       const file_time = this.state.selected_time;
       const file = this.state.selected;
       if (this.last_file == file && this.last_file_time == file_time) {
-        return;
+        return ;
       }
 
       this.last_file = file;
@@ -352,7 +352,7 @@ module.exports = {
     upload: function (e) {
       const files = e.target.files || e.dataTransfer.files;
       if (!files.length) {
-        return;
+        return null;
       }
 
       const file = files[0];
@@ -367,7 +367,7 @@ module.exports = {
 
         default:
           alert(`Unsupported file type: ${extension}`);
-          return;
+          return null;
       }
 
       SvelteComponents.showDialog("Upload", {
@@ -489,7 +489,7 @@ module.exports = {
     current: function (axis, value) {
       const x = value / 32.0;
       if (this.state[`${axis}pl`] == x) {
-        return;
+        return null;
       }
 
       const data = {};
