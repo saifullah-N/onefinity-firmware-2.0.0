@@ -1,8 +1,8 @@
 "use strict";
 
-var orbit = require("./orbit");
-var cookie = require("./cookie")("bbctrl-");
-var font = require("./helvetiker_regular.typeface.json");
+const orbit = require("./orbit");
+const cookie = require("./cookie")("bbctrl-");
+const font = require("./helvetiker_regular.typeface.json");
 
 module.exports = {
   template: "#path-viewer-template",
@@ -26,7 +26,7 @@ module.exports = {
 
   computed: {
     target: function () {
-      return $(this.$el).find(".path-viewer-content")[0];
+      return this.$el.querySelector(".path-viewer-content");
     },
 
     webglAvailable: function () {
@@ -48,6 +48,7 @@ module.exports = {
     toolpath: function () {
       Vue.nextTick(this.update);
     },
+
     surfaceMode: function (mode) {
       this.update_surface_mode(mode);
     },
@@ -86,9 +87,11 @@ module.exports = {
     x: function () {
       this.axis_changed();
     },
+
     y: function () {
       this.axis_changed();
     },
+
     z: function () {
       this.axis_changed();
     },
@@ -102,7 +105,7 @@ module.exports = {
   methods: {
     update: async function () {
       if (!this.webglAvailable) {
-        return;
+        return null;
       }
 
       if (!this.state.selected) {
@@ -114,21 +117,24 @@ module.exports = {
         this.draw_loading();
       }
 
-      if (!this.enabled || !this.toolpath.filename) return;
+      if (!this.enabled || !this.toolpath.filename) {
+        return null;
+      }
 
       async function get(url) {
-        const response = await fetch(`${url}?${Math.random()}`);
+        const response = await fetch(`${url}`, { cache: "no-cache" });
         const arrayBuffer = await response.arrayBuffer();
 
         return new Float32Array(arrayBuffer);
       }
 
-      const [positions, speeds] = await Promise.all([
-        get("/api/path/" + this.toolpath.filename + "/positions"),
-        get("/api/path/" + this.toolpath.filename + "/speeds"),
-      ]);
-
-      this.positions = positions;
+      // const [positions, speeds] = await Promise.all([
+      //   get(`/api/path/${this.toolpath.filename}/positions`),
+      //   get(`/api/path/${this.toolpath.filename}/speeds`),
+      // ]);
+      const positions =await get(`/api/path/${this.toolpath.filename}/positions`)
+      const speeds = await get(`/api/path/${this.toolpath.filename}/speeds`);
+      this.positions = positions ;
       this.speeds = speeds;
       this.loading = false;
 
@@ -141,7 +147,9 @@ module.exports = {
     },
 
     update_surface_mode: function (mode) {
-      if (!this.enabled) return;
+      if (!this.enabled) {
+        return null;
+      }
 
       if (typeof this.surfaceMaterial != "undefined") {
         this.surfaceMaterial.wireframe = mode == "wire";
@@ -156,34 +164,44 @@ module.exports = {
       if (typeof surface == "undefined") {
         this.vertices = undefined;
         this.normals = undefined;
-        return;
+        return null;
       }
 
       this.vertices = surface.vertices;
 
       // Expand normals
       this.normals = [];
-      for (var i = 0; i < surface.normals.length / 3; i++)
-        for (var j = 0; j < 3; j++)
-          for (var k = 0; k < 3; k++)
+      for (let i = 0; i < surface.normals.length / 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          for (let k = 0; k < 3; k++) {
             this.normals.push(surface.normals[i * 3 + k]);
+          }
+        }
+      }
     },
 
     set_visible: function (target, visible) {
-      if (typeof target != "undefined") target.visible = visible;
+      if (typeof target != "undefined") {
+        target.visible = visible;
+      }
       this.dirty = true;
     },
 
     get_dims: function () {
-      var t = $(this.target);
-      var width = t.innerWidth();
-      var height = t.innerHeight();
-      return { width: width, height: height };
+      const computedStyle = window.getComputedStyle(this.target);
+
+      return {
+        width: parseInt(computedStyle.width),
+        height: parseInt(computedStyle.height),
+      };
     },
 
     update_view: function () {
-      if (!this.enabled) return;
-      var dims = this.get_dims();
+      if (!this.enabled) {
+        return null;
+      }
+
+      const dims = this.get_dims();
 
       this.camera.aspect = dims.width / dims.height;
       this.camera.updateProjectionMatrix();
@@ -199,28 +217,45 @@ module.exports = {
     },
 
     update_tool: function (tool) {
-      if (!this.enabled) return;
-      if (typeof tool == "undefined") tool = this.toolView;
-      if (typeof tool == "undefined") return;
+      if (!this.enabled) {
+        return null;
+      }
+
+      if (typeof tool == "undefined") {
+        tool = this.toolView;
+      }
+
+      if (typeof tool == "undefined") {
+        return null;
+      }
+
       tool.position.x = this.x.pos;
       tool.position.y = this.y.pos;
       tool.position.z = this.z.pos;
     },
 
     update_envelope: function (envelope) {
-      if (!this.enabled || !this.axes.homed) return;
-      if (typeof envelope == "undefined") envelope = this.envelopeView;
-      if (typeof envelope == "undefined") return;
+      if (!this.enabled || !this.axes.homed) {
+        return null;
+      }
 
-      var min = new THREE.Vector3();
-      var max = new THREE.Vector3();
+      if (typeof envelope == "undefined") {
+        envelope = this.envelopeView;
+      }
 
-      for (var axis of "xyz") {
+      if (typeof envelope == "undefined") {
+        return null;
+      }
+
+      const min = new THREE.Vector3();
+      const max = new THREE.Vector3();
+
+      for (const axis of "xyz") {
         min[axis] = this[axis].min - this[axis].off;
         max[axis] = this[axis].max - this[axis].off;
       }
 
-      var bounds = new THREE.Box3(min, max);
+      const bounds = new THREE.Box3(min, max);
       if (bounds.isEmpty()) {
         envelope.geometry = this.create_empty_geom();
       } else {
@@ -236,7 +271,7 @@ module.exports = {
 
     graphics: function () {
       if (!this.webglAvailable) {
-        return;
+        return null;
       }
 
       try {
@@ -250,7 +285,7 @@ module.exports = {
         this.target.appendChild(this.renderer.domElement);
       } catch (e) {
         console.log("WebGL not supported: ", e);
-        return;
+        return null;
       }
 
       this.enabled = true;
@@ -261,19 +296,19 @@ module.exports = {
       // Lighting
       this.ambient = new THREE.AmbientLight(0xffffff, 0.5);
 
-      var keyLight = new THREE.DirectionalLight(
+      const keyLight = new THREE.DirectionalLight(
         new THREE.Color("hsl(30, 100%, 75%)"),
         0.75
       );
       keyLight.position.set(-100, 0, 100);
 
-      var fillLight = new THREE.DirectionalLight(
+      const fillLight = new THREE.DirectionalLight(
         new THREE.Color("hsl(240, 100%, 75%)"),
         0.25
       );
       fillLight.position.set(100, 0, 100);
 
-      var backLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      const backLight = new THREE.DirectionalLight(0xffffff, 0.5);
       backLight.position.set(100, 0, -100).normalize();
 
       this.lights = new THREE.Group();
@@ -326,7 +361,7 @@ module.exports = {
     draw_loading: function () {
       this.scene = new THREE.Scene();
 
-      var geometry = new THREE.TextGeometry("Loading 3D View...", {
+      const geometry = new THREE.TextGeometry("Loading 3D View...", {
         font: new THREE.Font(font),
         size: 40,
         height: 5,
@@ -338,8 +373,7 @@ module.exports = {
       });
       geometry.computeBoundingBox();
 
-      var center = geometry.center();
-      var mesh = new THREE.Mesh(geometry, this.surfaceMaterial);
+      const mesh = new THREE.Mesh(geometry, this.surfaceMaterial);
 
       this.scene.add(mesh);
       this.scene.add(this.ambient);
@@ -348,19 +382,21 @@ module.exports = {
     },
 
     draw_workpiece: function (scene, material) {
-      if (typeof this.workpiece == "undefined") return;
+      if (typeof this.workpiece == "undefined") {
+        return null;
+      }
 
-      var min = this.workpiece.min;
-      var max = this.workpiece.max;
+      let min = this.workpiece.min;
+      let max = this.workpiece.max;
 
       min = new THREE.Vector3(min[0], min[1], min[2]);
       max = new THREE.Vector3(max[0], max[1], max[2]);
-      var dims = max.clone().sub(min);
+      const dims = max.clone().sub(min);
 
-      var geometry = new THREE.BoxGeometry(dims.x, dims.y, dims.z);
-      var mesh = new THREE.Mesh(geometry, material);
+      const geometry = new THREE.BoxGeometry(dims.x, dims.y, dims.z);
+      const mesh = new THREE.Mesh(geometry, material);
 
-      var offset = dims.clone();
+      const offset = dims.clone();
       offset.divideScalar(2);
       offset.add(min);
 
@@ -374,9 +410,11 @@ module.exports = {
     },
 
     draw_surface: function (scene, material) {
-      if (typeof this.vertices == "undefined") return;
+      if (typeof this.vertices == "undefined") {
+        return null;
+      }
 
-      var geometry = new THREE.BufferGeometry();
+      const geometry = new THREE.BufferGeometry();
 
       geometry.addAttribute(
         "position",
@@ -395,12 +433,14 @@ module.exports = {
 
     draw_tool: function (scene, bbox) {
       // Tool size is relative to bounds
-      var size = bbox.getSize(new THREE.Vector3());
-      var length = (size.x + size.y + size.z) / 24;
+      const size = bbox.getSize(new THREE.Vector3());
+      let length = (size.x + size.y + size.z) / 24;
 
-      if (length < 1) length = 1;
+      if (length < 1) {
+        length = 1;
+      }
 
-      var material = new THREE.MeshPhongMaterial({
+      const material = new THREE.MeshPhongMaterial({
         transparent: true,
         opacity: 0.75,
         specular: 0x161616,
@@ -408,11 +448,11 @@ module.exports = {
         color: 0xffa500, // Orange
       });
 
-      var geometry = new THREE.CylinderGeometry(length / 2, 0, length, 128);
+      const geometry = new THREE.CylinderGeometry(length / 2, 0, length, 128);
       geometry.translate(0, length / 2, 0);
       geometry.rotateX(0.5 * Math.PI);
 
-      var mesh = new THREE.Mesh(geometry, material);
+      const mesh = new THREE.Mesh(geometry, material);
       this.update_tool(mesh);
       mesh.visible = this.showTool;
       scene.add(mesh);
@@ -420,19 +460,23 @@ module.exports = {
     },
 
     draw_axis: function (axis, up, length, radius) {
-      var color;
+      let color;
 
-      if (axis == 0) color = 0xff0000; // Red
-      else if (axis == 1) color = 0x00ff00; // Green
-      else if (axis == 2) color = 0x0000ff; // Blue
+      if (axis == 0) {
+        color = 0xff0000;
+      } else if (axis == 1) {
+        color = 0x00ff00;
+      } else if (axis == 2) {
+        color = 0x0000ff;
+      }
 
-      var group = new THREE.Group();
-      var material = new THREE.MeshPhongMaterial({
+      const group = new THREE.Group();
+      const material = new THREE.MeshPhongMaterial({
         specular: 0x161616,
         shininess: 10,
         color: color,
       });
-      var geometry = new THREE.CylinderGeometry(radius, radius, length, 128);
+      let geometry = new THREE.CylinderGeometry(radius, radius, length, 128);
       geometry.translate(0, -length / 2, 0);
       group.add(new THREE.Mesh(geometry, material));
 
@@ -440,27 +484,35 @@ module.exports = {
       geometry.translate(0, -length - radius, 0);
       group.add(new THREE.Mesh(geometry, material));
 
-      if (axis == 0) group.rotateZ((up ? 0.5 : 1.5) * Math.PI);
-      else if (axis == 1) group.rotateX((up ? 0 : 1) * Math.PI);
-      else if (axis == 2) group.rotateX((up ? 1.5 : 0.5) * Math.PI);
+      if (axis == 0) {
+        group.rotateZ((up ? 0.5 : 1.5) * Math.PI);
+      } else if (axis == 1) {
+        group.rotateX((up ? 0 : 1) * Math.PI);
+      } else if (axis == 2) {
+        group.rotateX((up ? 1.5 : 0.5) * Math.PI);
+      }
 
       return group;
     },
 
     draw_axes: function (scene, bbox) {
-      var size = bbox.getSize(new THREE.Vector3());
-      var length = (size.x + size.y + size.z) / 3;
+      const size = bbox.getSize(new THREE.Vector3());
+      let length = (size.x + size.y + size.z) / 3;
       length /= 10;
 
-      if (length < 1) length = 1;
+      if (length < 1) {
+        length = 1;
+      }
 
-      var radius = length / 20;
+      const radius = length / 20;
 
-      var group = new THREE.Group();
+      const group = new THREE.Group();
 
-      for (var axis = 0; axis < 3; axis++)
-        for (var up = 0; up < 2; up++)
+      for (let axis = 0; axis < 3; axis++) {
+        for (let up = 0; up < 2; up++) {
           group.add(this.draw_axis(axis, up, length, radius));
+        }
+      }
 
       group.visible = this.showAxes;
       scene.add(group);
@@ -469,26 +521,31 @@ module.exports = {
     },
 
     get_color: function (speed) {
-      if (isNaN(speed)) return [255, 0, 0]; // Rapid
+      if (isNaN(speed)) {
+        return [255, 0, 0];
+      } // Rapid
 
-      var intensity = speed / this.toolpath.maxSpeed;
-      if (typeof speed == "undefined" || !this.showIntensity) intensity = 1;
+      let intensity = speed / this.toolpath.maxSpeed;
+      if (typeof speed == "undefined" || !this.showIntensity) {
+        intensity = 1;
+      }
+
       return [0, 255 * intensity, 127 * (1 - intensity)];
     },
 
     draw_path: function (scene) {
-      var geometry = new THREE.BufferGeometry();
-      var material = new THREE.LineBasicMaterial({
+      const geometry = new THREE.BufferGeometry();
+      const material = new THREE.LineBasicMaterial({
         vertexColors: THREE.VertexColors,
         linewidth: 1.5,
       });
 
-      var positions = new THREE.Float32BufferAttribute(this.positions, 3);
+      const positions = new THREE.Float32BufferAttribute(this.positions, 3);
       geometry.addAttribute("position", positions);
 
-      var colors = [];
-      for (var i = 0; i < this.speeds.length; i++) {
-        var color = this.get_color(this.speeds[i]);
+      let colors = [];
+      for (let i = 0; i < this.speeds.length; i++) {
+        const color = this.get_color(this.speeds[i]);
         Array.prototype.push.apply(colors, color);
       }
 
@@ -498,7 +555,7 @@ module.exports = {
       geometry.computeBoundingSphere();
       geometry.computeBoundingBox();
 
-      var line = new THREE.Line(geometry, material);
+      const line = new THREE.Line(geometry, material);
 
       line.visible = this.showPath;
       scene.add(line);
@@ -507,7 +564,7 @@ module.exports = {
     },
 
     create_empty_geom: function () {
-      var geometry = new THREE.BufferGeometry();
+      const geometry = new THREE.BufferGeometry();
       geometry.addAttribute(
         "position",
         new THREE.Float32BufferAttribute([], 3)
@@ -516,7 +573,7 @@ module.exports = {
     },
 
     create_bbox_geom: function (bbox) {
-      var vertices = [];
+      const vertices = [];
 
       if (!bbox.isEmpty()) {
         // Top
@@ -550,7 +607,7 @@ module.exports = {
         vertices.push(bbox.min.x, bbox.max.y, bbox.max.z);
       }
 
-      var geometry = new THREE.BufferGeometry();
+      const geometry = new THREE.BufferGeometry();
 
       geometry.addAttribute(
         "position",
@@ -561,9 +618,9 @@ module.exports = {
     },
 
     draw_bbox: function (scene, bbox) {
-      var geometry = this.create_bbox_geom(bbox);
-      var material = new THREE.LineBasicMaterial({ color: 0xffffff });
-      var line = new THREE.LineSegments(geometry, material);
+      const geometry = this.create_bbox_geom(bbox);
+      const material = new THREE.LineBasicMaterial({ color: 0xffffff });
+      const line = new THREE.LineSegments(geometry, material);
 
       line.visible = this.showBBox;
 
@@ -573,9 +630,9 @@ module.exports = {
     },
 
     draw_envelope: function (scene) {
-      var geometry = this.create_empty_geom();
-      var material = new THREE.LineBasicMaterial({ color: 0x00f7ff });
-      var line = new THREE.LineSegments(geometry, material);
+      const geometry = this.create_empty_geom();
+      const material = new THREE.LineBasicMaterial({ color: 0x00f7ff });
+      const line = new THREE.LineSegments(geometry, material);
 
       line.visible = this.showBBox;
 
@@ -597,7 +654,7 @@ module.exports = {
       this.update_surface_mode(this.surfaceMode);
 
       // Compute bounding box
-      var bbox = this.get_model_bounds();
+      const bbox = this.get_model_bounds();
 
       // Tool, axes & bounds
       this.toolView = this.draw_tool(scene, bbox);
@@ -608,7 +665,10 @@ module.exports = {
 
     render: function () {
       window.requestAnimationFrame(this.render);
-      if (typeof this.scene == "undefined") return;
+
+      if (typeof this.scene == "undefined") {
+        return null;
+      }
 
       if (this.controls.update() || this.dirty) {
         this.dirty = false;
@@ -617,14 +677,14 @@ module.exports = {
     },
 
     get_model_bounds: function () {
-      var bbox = new THREE.Box3(
+      const bbox = new THREE.Box3(
         new THREE.Vector3(0, 0, 0),
         new THREE.Vector3(0.00001, 0.00001, 0.00001)
       );
 
       function add(o) {
         if (typeof o != "undefined") {
-          var oBBox = new THREE.Box3();
+          const oBBox = new THREE.Box3();
           oBBox.setFromObject(o);
           bbox.union(oBBox);
         }
@@ -638,49 +698,67 @@ module.exports = {
     },
 
     snap: function (view) {
-      if (this.loading) return;
+      if (this.loading) {
+        return null;
+      }
+
       if (view != this.snapView) {
         this.snapView = view;
         cookie.set("snap-view", view);
       }
 
-      var bbox = this.get_model_bounds();
+      const bbox = this.get_model_bounds();
       this.controls.reset();
       bbox.getCenter(this.controls.target);
       this.update_view();
 
       // Compute new camera position
-      var center = bbox.getCenter(new THREE.Vector3());
-      var offset = new THREE.Vector3();
+      const center = bbox.getCenter(new THREE.Vector3());
+      const offset = new THREE.Vector3();
 
-      if (view == "isometric") {
-        offset.y -= 1;
-        offset.z += 1;
+      switch (view) {
+        case "isometric":
+          offset.y -= 1;
+          offset.z += 1;
+          break;
+        case "front":
+          offset.y -= 1;
+          break;
+        case "back":
+          offset.y += 1;
+          break;
+        case "left":
+          offset.x -= 1;
+          break;
+        case "right":
+          offset.x += 1;
+          break;
+        case "top":
+          offset.z += 1;
+          break;
+        case "bottom":
+          offset.z -= 1;
+          break;
       }
-      if (view == "front") offset.y -= 1;
-      if (view == "back") offset.y += 1;
-      if (view == "left") offset.x -= 1;
-      if (view == "right") offset.x += 1;
-      if (view == "top") offset.z += 1;
-      if (view == "bottom") offset.z -= 1;
+
       offset.normalize();
 
       // Initial camera position
-      var position = new THREE.Vector3().copy(center).add(offset);
+      const position = new THREE.Vector3().copy(center).add(offset);
       this.camera.position.copy(position);
       this.camera.lookAt(center); // Get correct camera orientation
 
-      var theta = (this.camera.fov / 180) * Math.PI; // View angle
-      var cameraLine = new THREE.Line3(center, position);
-      var cameraUp = new THREE.Vector3()
+      const theta = (this.camera.fov / 180) * Math.PI; // View angle
+      const cameraLine = new THREE.Line3(center, position);
+      const cameraUp = new THREE.Vector3()
         .copy(this.camera.up)
         .applyQuaternion(this.camera.quaternion);
-      var cameraLeft = new THREE.Vector3()
+      const cameraLeft = new THREE.Vector3()
         .copy(offset)
         .cross(cameraUp)
         .normalize();
 
-      var corners = [
+      const corners = [
         new THREE.Vector3(bbox.min.x, bbox.min.y, bbox.min.z),
         new THREE.Vector3(bbox.min.x, bbox.min.y, bbox.max.z),
         new THREE.Vector3(bbox.min.x, bbox.max.y, bbox.min.z),
@@ -691,43 +769,49 @@ module.exports = {
         new THREE.Vector3(bbox.max.x, bbox.max.y, bbox.max.z),
       ];
 
-      var dist = this.camera.near; // Min camera dist
+      let dist = this.camera.near; // Min camera dist
 
-      for (var i = 0; i < corners.length; i++) {
+      for (let i = 0; i < corners.length; i++) {
         // Project on to camera line
-        var p1 = cameraLine.closestPointToPoint(
+        const p1 = cameraLine.closestPointToPoint(
           corners[i],
           false,
           new THREE.Vector3()
         );
 
         // Compute distance from projection to center
-        var d = p1.distanceTo(center);
-        if (cameraLine.closestPointToPointParameter(p1, false) < 0) d = -d;
+        let d = p1.distanceTo(center);
+        if (cameraLine.closestPointToPointParameter(p1, false) < 0) {
+          d = -d;
+        }
 
         // Compute up line
-        var up = new THREE.Line3(
+        const up = new THREE.Line3(
           p1,
           new THREE.Vector3().copy(p1).add(cameraUp)
         );
 
         // Project on to up line
-        var p2 = up.closestPointToPoint(corners[i], false, new THREE.Vector3());
+        const p2 = up.closestPointToPoint(
+          corners[i],
+          false,
+          new THREE.Vector3()
+        );
 
         // Compute length
-        var l = p1.distanceTo(p2);
+        let l = p1.distanceTo(p2);
 
         // Update min camera distance
         dist = Math.max(dist, d + l / Math.tan(theta / 2));
 
         // Compute left line
-        var left = new THREE.Line3(
+        const left = new THREE.Line3(
           p1,
           new THREE.Vector3().copy(p1).add(cameraLeft)
         );
 
         // Project on to left line
-        var p3 = left.closestPointToPoint(
+        const p3 = left.closestPointToPoint(
           corners[i],
           false,
           new THREE.Vector3()
