@@ -49,8 +49,7 @@ class CheckConfigurationHandler(bbctrl.APIHandler):
                 Config = False
 
         self.write_json({
-                'initalConfig': Config,
-                "hi": "hello"
+                'initalConfig': Config
             })
 
 class ButtonTypeHandler(bbctrl.APIHandler):
