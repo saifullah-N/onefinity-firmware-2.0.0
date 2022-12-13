@@ -16,6 +16,7 @@
     let wifiConnectionDialog = {
         open: false,
         network: {} as WifiNetwork,
+        rebootNow : false
     };
     function refreshWifi(){
              let networkData  = GET("network")
@@ -48,10 +49,11 @@
         };
     }
 
-    function onNetworkSelected(network: WifiNetwork) {
+    function onNetworkSelected(network: WifiNetwork ,rebootNow:boolean) {
         wifiConnectionDialog = {
             open: true,
             network,
+            rebootNow: !rebootNow,
         };
     }
 </script>
@@ -104,10 +106,10 @@
         <div class="pure-control-group">
             <label for="wifi">Wi-Fi</label>
             <div class="wifi-networks">
-                <Card id="wifi" variant="outlined">
-                    <List>
-                        {#if $networkInfo.wifi.networks.length === 0}
-                            <Item class="wifi-network">
+            <Card id="wifi" variant="outlined">
+                <List>
+                    {#if $networkInfo.wifi.networks.length === 0}
+                    <Item class="wifi-network">
                                 <Text>Scanning...</Text>
                             </Item>
                         {:else}
@@ -115,7 +117,7 @@
                                 <Item
                                     class="wifi-network"
                                     on:SMUI:action={() =>
-                                        onNetworkSelected(network)}
+                                        onNetworkSelected(network,hash)}
                                 >
                                     <Graphic
                                         class="strength {$networkInfo.wifi

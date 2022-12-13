@@ -16,8 +16,9 @@
 
     export let open = false;
     export let network: WifiNetwork;
+    export let rebootNow = false;
 
-    let rebooting = false;
+    let showmsg = false;
     let password = "";
     let showPassword = false;
 
@@ -33,7 +34,7 @@
 
     async function onConfirm() {
         
-        rebooting = true
+        showmsg = true
 
         await api.PUT("network", {
             wifi: {
@@ -41,11 +42,13 @@
                 ssid: network.Name,
                 password,
             },
+
+            rebootFlag : rebootNow
         });
     }
 </script>
 
-<MessageDialog open={rebooting} title="Msg" >
+<MessageDialog open={showmsg} title="Msg" >
         wifi will connect after reboot...
 </MessageDialog>
 

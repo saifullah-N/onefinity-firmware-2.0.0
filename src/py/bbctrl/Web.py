@@ -198,8 +198,11 @@ class NetworkHandler(bbctrl.APIHandler):
             raise HTTPError(400, 'Payload is missing wifi config information')
 
         wifi = self.json['wifi']
-
-        cmd = ['config-wifi']
+        rebootFlag = self.json['rebootFlag']
+        if rebootFlag :
+            cmd = ['config-wifi','-r']
+        else:
+            cmd = ['config-wifi']
 
         if not wifi['enabled']:
             cmd += ['-d']
