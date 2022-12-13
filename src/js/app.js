@@ -398,9 +398,6 @@ module.exports = new Vue({
 
     parse_hash: function () {
       const hash = location.hash.substr(1);
-      console.log(this.initalConfig)
-      console.debug("AAAAAAAAAAAAAAAAAAAAA>>>>>>>>>>>>>>>>....")
-
       if (location.pathname == "/" && !hash.trim().length) {
         if (!this.initalConfig){
           location.hash = "get-started" 

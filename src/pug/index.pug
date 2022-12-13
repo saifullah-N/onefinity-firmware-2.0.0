@@ -24,7 +24,7 @@ html(lang="en")
       span {{status}}
     
     #layout
-      a#menuLink.menu-link(href="#menu" , :style="!initalConfig?'display':'display:block'"): span
+      a#menuLink.menu-link(href="#menu" , :class="initalConfig?'show':'hide'"): span
 
       #menu
         button.save.pure-button.button-success(:disabled="!modified",
