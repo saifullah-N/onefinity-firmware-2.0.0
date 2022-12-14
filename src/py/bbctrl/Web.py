@@ -150,27 +150,33 @@ class NetworkData(bbctrl.APIHandler):
         try:
             ipAddresses = subprocess.check_output("ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True).decode().split()
             ipAddresses.remove("127.0.0.1")
+            regex = re.compile(r'/255$/')
+            filtered = [i for i in ipAddresses if not regex.match(i)]
+            ipAddresses = filtered[0]
         except:
-            ipAddresses = ["0.0.0.0"]            
+            ipAddresses = "Not Connected"         
         try:
             wifi = subprocess.check_output(
                 "sudo iw dev wlan0 info | grep ssid", shell=True).decode().split()
         except:
             wifi = ["","not connected"]
         self.write_json({
-            'ipAddresses': ipAddresses[0],
+            'ipAddresses': ipAddresses,
             'wifi': wifi[1]
         })
 class NetworkHandler(bbctrl.APIHandler):
 
     def get(self):
         try:
-            # ipAddresses = call_get_output(['hostname', '-I']).decode().split()
             ipAddresses = subprocess.check_output(
                 "ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True).decode().split()
             ipAddresses.remove("127.0.0.1")
+            regex = re.compile(r'/255$/')
+            filtered = [i for i in ipAddresses if not regex.match(i)]
+            ipAddresses = filtered[0]
+
         except:
-            ipAddresses = ""
+            ipAddresses = "Not Connected"
 
         hostname = socket.gethostname()
 
@@ -186,7 +192,7 @@ class NetworkHandler(bbctrl.APIHandler):
             wifi['networks'] = []
 
         self.write_json({
-            'ipAddresses': ipAddresses[0],
+            'ipAddresses': ipAddresses,
             'hostname': hostname,
             'wifi': wifi
         })
