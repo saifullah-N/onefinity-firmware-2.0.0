@@ -105,7 +105,7 @@ module.exports = {
   methods: {
     update: async function () {
       if (!this.webglAvailable) {
-        return null;
+        return;
       }
 
       if (!this.state.selected) {
@@ -118,7 +118,7 @@ module.exports = {
       }
 
       if (!this.enabled || !this.toolpath.filename) {
-        return null;
+        return;
       }
 
       async function get(url) {
@@ -147,7 +147,7 @@ module.exports = {
 
     update_surface_mode: function (mode) {
       if (!this.enabled) {
-        return null;
+        return;
       }
 
       if (typeof this.surfaceMaterial != "undefined") {
@@ -163,7 +163,7 @@ module.exports = {
       if (typeof surface == "undefined") {
         this.vertices = undefined;
         this.normals = undefined;
-        return null;
+        return;
       }
 
       this.vertices = surface.vertices;
@@ -197,7 +197,7 @@ module.exports = {
 
     update_view: function () {
       if (!this.enabled) {
-        return null;
+        return;
       }
 
       const dims = this.get_dims();
@@ -217,7 +217,7 @@ module.exports = {
 
     update_tool: function (tool) {
       if (!this.enabled) {
-        return null;
+        return;
       }
 
       if (typeof tool == "undefined") {
@@ -225,7 +225,7 @@ module.exports = {
       }
 
       if (typeof tool == "undefined") {
-        return null;
+        return;
       }
 
       tool.position.x = this.x.pos;
@@ -235,7 +235,7 @@ module.exports = {
 
     update_envelope: function (envelope) {
       if (!this.enabled || !this.axes.homed) {
-        return null;
+        return;
       }
 
       if (typeof envelope == "undefined") {
@@ -243,7 +243,7 @@ module.exports = {
       }
 
       if (typeof envelope == "undefined") {
-        return null;
+        return;
       }
 
       const min = new THREE.Vector3();
@@ -270,7 +270,7 @@ module.exports = {
 
     graphics: function () {
       if (!this.webglAvailable) {
-        return null;
+        return;
       }
 
       try {
@@ -284,7 +284,7 @@ module.exports = {
         this.target.appendChild(this.renderer.domElement);
       } catch (e) {
         console.log("WebGL not supported: ", e);
-        return null;
+        return;
       }
 
       this.enabled = true;
@@ -382,7 +382,7 @@ module.exports = {
 
     draw_workpiece: function (scene, material) {
       if (typeof this.workpiece == "undefined") {
-        return null;
+        return;
       }
 
       let min = this.workpiece.min;
@@ -410,7 +410,7 @@ module.exports = {
 
     draw_surface: function (scene, material) {
       if (typeof this.vertices == "undefined") {
-        return null;
+        return;
       }
 
       const geometry = new THREE.BufferGeometry();
@@ -666,7 +666,7 @@ module.exports = {
       window.requestAnimationFrame(this.render);
 
       if (typeof this.scene == "undefined") {
-        return null;
+        return;
       }
 
       if (this.controls.update() || this.dirty) {
@@ -698,7 +698,7 @@ module.exports = {
 
     snap: function (view) {
       if (this.loading) {
-        return null;
+        return;
       }
 
       if (view != this.snapView) {
