@@ -160,7 +160,6 @@ class NetworkData(bbctrl.APIHandler):
             wifi.pop(0)
             wifiName = " ".join(wifi)
         except:
-            self.get_log().info(wifi)
             wifi = "not connected"
         self.write_json({
             'ipAddresses': ipAddresses,
