@@ -159,12 +159,13 @@ class NetworkData(bbctrl.APIHandler):
             wifi = subprocess.check_output(
                 "sudo iw dev wlan0 info | grep ssid", shell=True).decode().split()
             wifi = wifi.remove("ssid")
-            wifi = " ".join(wifi)
+            wifiName = " ".join(wifi)
         except:
+            self.get_log().info(wifi)
             wifi = "not connected"
         self.write_json({
             'ipAddresses': ipAddresses,
-            'wifi': wifi
+            'wifi': wifiName
         })
 class NetworkHandler(bbctrl.APIHandler):
 
