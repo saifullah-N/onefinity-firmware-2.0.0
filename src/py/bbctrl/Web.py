@@ -148,7 +148,7 @@ class NetworkData(bbctrl.APIHandler):
 
     def get(self):
         try:
-            ipAddresses = subprocess.check_output("ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True).decode().split()
+            ipAddresses = subprocess.P("ip -4 addr | grep -oE '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'", shell=True).decode().split()
             ipAddresses.remove("127.0.0.1")
             regex = re.compile(r'/255$/')
             filtered = [i for i in ipAddresses if not regex.match(i)]
@@ -156,9 +156,8 @@ class NetworkData(bbctrl.APIHandler):
         except:
             ipAddresses = "Not Connected"         
         try:
-            wifi = subprocess.check_output(
-                "sudo iw dev wlan0 info | grep ssid", shell=True).decode().split()
-            wifi = wifi.remove("ssid")
+            wifi = subprocess.check_output("sudo iw dev wlan0 info | grep ssid", shell=True).decode().split()
+            wifi.pop(0)
             wifiName = " ".join(wifi)
         except:
             self.get_log().info(wifi)
