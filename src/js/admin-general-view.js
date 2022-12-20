@@ -57,6 +57,7 @@ module.exports = {
 
                 try {
                     await api.put("config/save", config);
+                    await api.put("set-initial-config",{ setup: true });
                     this.$dispatch("update");
                     SvelteComponents.showDialog("Message", {
                         title: "Success",
