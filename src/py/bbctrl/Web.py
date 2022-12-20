@@ -640,14 +640,6 @@ class StaticFileHandler(tornado.web.StaticFileHandler):
 class Web(tornado.web.Application):
 
     def __init__(self, args, ioloop):
-        # configFile = open("/var/lib/bbctrl/config.json", "r")
-        # json_object = json.load(configFile)
-        # page = ""
-        # if(json_object["initalConfig"]): 
-        #     page="index.html"
-        # else:
-        #     page = "getStarted.html"
-        
         self.args = args
         self.ioloop = ioloop
         self.ctrls = {}
@@ -711,24 +703,6 @@ class Web(tornado.web.Application):
                 'default_filename': "index.html"
             })
 ]
-
-        # (r'/network/(.*)', StaticFileHandler, {
-        #     'path': bbctrl.get_resource('http/'),
-        #     'default_filename': 'network.html'
-        # }),
-        # (r'/defaultConfig/(.*)', StaticFileHandler, {
-        #     'path': bbctrl.get_resource('http/'),
-        #     'default_filename': 'defaultConfig.html'
-        # }),
-        # (r'/done/(.*)', StaticFileHandler, {
-        #     'path': bbctrl.get_resource('http/'),
-        #     'default_filename': 'done.html'
-        # }),
-        # (r'/buttonType/(.*)', StaticFileHandler, {
-        # 'path': bbctrl.get_resource('http/'),
-        # 'default_filename': 'buttonType.html'
-        # }),
-
         router = sockjs.tornado.SockJSRouter(SockJSConnection, '/sockjs')
         router.app = self
 
