@@ -192,8 +192,8 @@
 
             .wifi-networks {
                 display: inline-block;
-                overflow-y: scroll; 
-
+                height:30vh;
+                overflow: auto;
                 .mdc-card {
                     padding: 0;
                     margin-bottom: 5px;
