@@ -155,7 +155,7 @@
     {#if hash}
     <div style="display:flex; justify-content: space-around; margin-top:2%">
         <a href="#button-controller" style=" color:white ; background-color:#ADD1AD ; font-size:20px; font-family:sans-serif ;  padding:15px 40px ; border-radius:8%;text-decoration: none;">previous </a>
-        <a href="#initial-setup" style=" color:white ; background-color:#ADD1AD ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;">next</a>
+        <a href="#initial-setup" style=" color:white ; background-color:#ADD1AD ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none; margin-left: auto;">next</a>
     </div>
     {/if}
 </div>
@@ -192,7 +192,7 @@
 
             .wifi-networks {
                 display: inline-block;
-                height:30vh;
+                height:50vh;
                 overflow: auto;
                 .mdc-card {
                     padding: 0;
