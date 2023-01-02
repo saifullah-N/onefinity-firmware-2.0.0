@@ -191,7 +191,6 @@
             }
 
             .wifi-networks {
-                min-height:500px;
                 display: inline-block;
                 overflow-y: scroll; 
 
