@@ -39,7 +39,6 @@ module.exports = {
         },
 
         restore: function(e) {
-            this.config.initalConfig = (location.hash == "#admin-general" )
             const files = e.target.files || e.dataTransfer.files;
             if (!files.length) {
                 return;
@@ -58,7 +57,7 @@ module.exports = {
 
                 try {
                     await api.put("config/save", config);
-                    await api.put("set-initial-config",{ setup: true });
+                    this.config.initalConfig =location.hash  == "#admin-general";
                     this.$dispatch("update");
                     SvelteComponents.showDialog("Message", {
                         title: "Success",
