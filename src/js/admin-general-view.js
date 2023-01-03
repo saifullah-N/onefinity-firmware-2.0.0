@@ -39,7 +39,7 @@ module.exports = {
         },
 
         restore: function(e) {
-            config.initalConfig = (location.hash == "#admin-general" )
+            this.config.initalConfig = (location.hash == "#admin-general" )
             const files = e.target.files || e.dataTransfer.files;
             if (!files.length) {
                 return;
