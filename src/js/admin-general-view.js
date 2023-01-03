@@ -15,7 +15,7 @@ const variant_defaults = {
 
 module.exports = {
     template: "#admin-general-view-template",
-    props: [ "config", "state"],
+    props: [ "config", "state" ],
 
     data: function() {
         return {
@@ -57,7 +57,7 @@ module.exports = {
 
                 try {
                     await api.put("config/save", config);
-                    this.config.initalConfig =location.hash  == "#admin-general";
+                    await api.put("set-initial-config",{ setup: true });
                     this.$dispatch("update");
                     SvelteComponents.showDialog("Message", {
                         title: "Success",
@@ -78,6 +78,7 @@ module.exports = {
                 config_defaults,
                 variant_defaults[this.reset_variant]
             );
+            config.initalConfig=true;
 
             try {
                 await api.put("config/save", config);
