@@ -15,7 +15,7 @@ const variant_defaults = {
 
 module.exports = {
     template: "#admin-general-view-template",
-    props: [ "config", "state" ],
+    props: [ "config", "state"],
 
     data: function() {
         return {
@@ -39,6 +39,7 @@ module.exports = {
         },
 
         restore: function(e) {
+            config.initalConfig = (location.hash == "#admin-general" )
             const files = e.target.files || e.dataTransfer.files;
             if (!files.length) {
                 return;
