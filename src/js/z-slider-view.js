@@ -62,7 +62,7 @@ module.exports = {
 
         const config = merge(
           {},
-        this.config["motors"],
+        {motors:this.config["motors"]},
         config_defaults,
       );
 
