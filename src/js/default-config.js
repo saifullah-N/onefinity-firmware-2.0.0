@@ -86,7 +86,7 @@ module.exports = {
           title: "Success",
           message: "Configuration Set",
         });
-        location.hash="button-controller";
+        location.hash = "z-slider";
       } catch (error) {
         console.error("Restore failed:", error);
         alert("Restore failed");

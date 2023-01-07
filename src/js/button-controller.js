@@ -41,7 +41,7 @@ module.exports = {
     },
 
     previous:function() {
-     location.hash = "default-config"; 
+     location.hash = "z-slider"; 
     }
   },
 };

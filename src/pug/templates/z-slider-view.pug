@@ -1,14 +1,17 @@
-script#z-slider-view-template(type="text/x-template")    
-      h3(slot="header") Pick your Z Slider Type
-      p(slot="body") Non-network configuration changes will be lost.
-      p(slot="body") Select defaults to restore:
-      p.reset-variants(slot="body")
-        input#tab1(type="radio", name="z_slider_variant" @click="z_slider_variant = 'Z-16 Original'")
-        label(for="tab1", title="Z-16 Original") Z-16 Original
-
-        input#tab2(type="radio", name="z_slider_variant" @click="z_slider_variant = 'Z-20 Heavy Duty'")
-        label(for="tab2", title="Z-20 Heavy Duty") Z-20 Heavy Duty
-                
-      div(slot="footer")
-        button.pure-button(@click="z_slider = false") Cancel
-        button.pure-button.pure-button-primary(@click="set_z_slider") set z slider
+script#z-slider-view-template(type="text/x-template")
+  #z-slider 
+      style. 
+        .enabled{color:white ; background-color:#ADD1AD ; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;margin:0 4vw;}
+        .disabled{color:white ; background-color:#b0b0b0; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;margin:0 4vw;}
+      div(style="text-align:center")   
+          h1 Pick your Z Slider Type 
+          p(slot="body") Non-network configuration changes will be lost.
+          h2 Select defaults:
+          div(style="display:inline-block; text-align:justify")
+          
+            div(style="padding:15px")
+              input#tab1(type="radio",name="z_slider_variant" @click="z_slider_variant = 'Z-16 Original'")
+              label(for="tab1", title="Z-16 Original") Z-16 Original
+          div(style='display:flex; justify-content: space-evenly; ')
+            button( class="enabled" @click="previous") previous
+            button( :class="z_slider_variant?'enabled':'disabled'", @click="set_z_slider" :disabled="!z_slider_variant") next

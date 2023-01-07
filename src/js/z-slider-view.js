@@ -24,7 +24,6 @@ module.exports = {
   data: function () {
     return {
       autoCheckUpgrade: true,
-      z_slider: "",
       z_slider_variant: " ",
     };
   },
@@ -34,25 +33,9 @@ module.exports = {
   },
 
   methods: {
-    // next: async function () {
-    //   const config = merge(
-    //     {},
-    //     config_defaults,
-    //     variant_defaults[this.reset_variant]
-    //   );
-
-    //   try {
-    //     await api.put("config/save", config);
-    //     this.confirmReset = false;
-    //     this.$dispatch("update");
-    //     this.config = config;
-    //     this.z_slider = true;
-    //   } catch (error) {
-    //     console.error("Restore failed:", error);
-    //     alert("Restore failed");
-    //   }
-    // },
-
+   previous: function () {
+      location.hash = "default-config";
+    },
     set_z_slider: async function () {
                 
                 
@@ -75,7 +58,7 @@ module.exports = {
             title: "Success",
             message: "Configuration restored",
           });
-          this.z_slider = false;
+          location.hash = "button-controller";
       } catch (error) {
         console.error("Z slider failed:", error);
         alert("failed to set Z slider  ");

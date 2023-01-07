@@ -6,12 +6,6 @@ const merge = require("lodash.merge");
 
 const config_defaults = require("../resources/onefinity_defaults.json");
 
-const variant_defaults = {
-    machinist_x35: require("../resources/onefinity_machinist_x35_defaults.json"),
-    woodworker_x35: require("../resources/onefinity_woodworker_x35_defaults.json"),
-    woodworker_x50: require("../resources/onefinity_woodworker_x50_defaults.json"),
-    journeyman_x50: require("../resources/onefinity_journeyman_x50_defaults.json")
-};
 
 module.exports = {
     template: "#admin-general-view-template",
@@ -76,14 +70,14 @@ module.exports = {
             const config = merge(
                 {},
                 config_defaults,
-                variant_defaults[this.reset_variant]
             );
-            config.initalConfig=true;
+            config.initalConfig=false;
 
             try {
                 await api.put("config/save", config);
                 this.confirmReset = false;
                 this.$dispatch("update");
+                location.hash="get-started"
                 SvelteComponents.showDialog("Message", {
                     title: "Success",
                     message: "Configuration restored"
