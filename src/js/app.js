@@ -152,6 +152,7 @@ module.exports = new Vue({
     "get-started-view": {
       template: "#get-started-template",
     },
+    "z-slider-view":require('./z-slider-view'),
     "cheat-sheet-view": {
       template: "#cheat-sheet-view-template",
       data: function () {

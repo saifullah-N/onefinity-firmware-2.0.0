@@ -500,6 +500,45 @@ class ScreenRotationHandler(bbctrl.APIHandler):
         subprocess.run('reboot')
 
 
+    @gen.coroutine
+    def get(self):
+        with open("/boot/config.txt", 'rt') as config:
+            lines = config.readlines()
+            for line in lines:
+                if line.startswith('display_rotate'):
+                    self.write_json({
+                        'rotated':
+                        int(displayRotatePattern.search(line).group(1)) != 0
+                    })
+                    return
+
+        self.write_json({'rotated': False})
+        return
+
+    @gen.coroutine
+    def put_ok(self):
+        rotated = self.json['rotated']
+
+        subprocess.Popen([
+            '/usr/local/bin/edit-boot-config',
+            'display_rotate={}'.format(2 if rotated else 0)
+        ])
+
+        with open("/usr/share/X11/xorg.conf.d/40-libinput.conf",
+                  'rt') as config:
+            text = config.read()
+            text = transformationMatrixPattern.sub(r'\1\2\3\5', text)
+            if rotated:
+                text = matchIsTouchscreenPattern.sub(
+                    r'\1\2\3\2Option "TransformationMatrix" "-1 0 1 0 -1 1 0 0 1"\1\4',
+                    text)
+        with open("/usr/share/X11/xorg.conf.d/40-libinput.conf",
+                  'wt') as config:
+            config.write(text)
+
+        subprocess.run('reboot')
+
+
 class TimeHandler(bbctrl.APIHandler):
 
     def get(self):
