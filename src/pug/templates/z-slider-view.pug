@@ -9,9 +9,14 @@ script#z-slider-view-template(type="text/x-template")
           h2 Select defaults:
           div(style="display:inline-block; text-align:justify")
           
-            div(style="padding:15px")
+            div(style="padding:20px")
               input#tab1(type="radio",name="z_slider_variant" @click="z_slider_variant = 'Z-16 Original'")
-              label(for="tab1", title="Z-16 Original") Z-16 Original
+              label(for="tab1", title="Z-16 Original",style="font-size:25px") Z-16 Original
+
+            div(style="padding:20px")
+              input#tab2(type="radio", name="z_slider_variant" @click="z_slider_variant = 'Z-20 Heavy Duty'")
+              label(for="tab2", title="Z-20 Heavy Duty",style="font-size:25px") Z-20 Heavy Duty
+
           div(style='display:flex; justify-content: space-evenly; ')
             button( class="enabled" @click="previous") previous
             button( :class="z_slider_variant?'enabled':'disabled'", @click="set_z_slider" :disabled="!z_slider_variant") next
