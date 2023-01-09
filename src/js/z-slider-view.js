@@ -50,9 +50,7 @@ module.exports = {
       );
 
        config.motors[3] = z_variant;
-       console.log(z_variant);
       try {
-        console.log(config);
           await api.put("config/save",config);
           this.$dispatch("update");
           SvelteComponents.showDialog("Message", {
