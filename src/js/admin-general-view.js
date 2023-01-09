@@ -78,6 +78,7 @@ module.exports = {
                 this.confirmReset = false;
                 this.$dispatch("update");
                 location.hash="get-started"
+                location.reload()
                 SvelteComponents.showDialog("Message", {
                     title: "Success",
                     message: "Configuration restored"

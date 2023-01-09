@@ -26,7 +26,7 @@ html(lang="en")
     #layout
       a#menuLink(href="#menu" , :class="initalConfig?' menu-link':'hide'"): span
 
-      #menu(:class="initalConfig?'un-hide':'hide'")
+      #menu(:class="initalConfig?'un-hide':''")
         button.save.pure-button.button-success(:disabled="!modified",
           @click="save") Save
 
