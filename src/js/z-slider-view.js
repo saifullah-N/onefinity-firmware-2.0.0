@@ -51,12 +51,12 @@ module.exports = {
 
        config.motors[3] = z_variant;
       try {
-        console.table(config);
+        console.debug(config);
           await api.put("config/save",config);
           this.$dispatch("update");
           SvelteComponents.showDialog("Message", {
             title: "Success",
-            message: "Configuration restored",
+            message: "Configuration set!!",
           });
           location.hash = "button-controller";
       } catch (error) {

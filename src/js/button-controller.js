@@ -19,12 +19,7 @@ module.exports = {
   methods: {
 
     set_btn_type: async function () {
-      // const config = {
-      //   button: this.button_type,
-      // };
-       const data = { button:this.button_type}
-       
-         console.log(this.button_type)
+       const data = { button:this.button_type}       
       try {
         await api.put("set-button-type",data); //JSON.stringify(data)
         this.confirmReset = false;

@@ -1,26 +1,13 @@
 script#button-controller-view(type="text/x-template")
   #btn-check
-      style.
-        .pxSize{
-          width:7.5vw  
-        }
-        .selected{
-          box-shadow:0 0 20px #0a74f5;
-          width:7.5vw
-
-        }
-        .enabled{color:white ; background-color:#ADD1AD; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;margin:0 4vw;}
-        .disabled{color:white ; background-color:#b0b0b0; font-size:20px; font-family:sans-serif ; padding:15px 40px ; border-radius:8%;text-decoration: none;margin:0 4vw;}
-
       div(style="text-align:center")   
-          //- message(:show.sync="confirmReset")
           h1(slot="header") Set button Type 
           h3(slot="body") click on the icon to select button type :
           div(style="display:flex;flex-direction:row;justify-content:space-around ; justify-content: space-around; flex-wrap:wrap;min-height:40vh")
             div(style="padding:15px",@click="button_type = 'push'" ,)
                 img(src="./images/pushButton.png", style="display:inline", alt="push button" :class="button_type=='push'?'selected':'pxSize'")
             div(style="padding:15px ",)
-                img(src="./images/rockerButton.png",style="display:inline", alt="push button" @click="button_type = 'rock'" ,:class="button_type=='rock'?'selected':'pxSize'")
+                img(src="./images/rockerButton.png",style="display:inline", alt="rocker button" @click="button_type = 'rock'" ,:class="button_type=='rock'?'selected':'pxSize'")
           div(style='text-align:center')
             div(style='display:flex; justify-content:center')
               button( class="enabled",@click="previous") previous 
